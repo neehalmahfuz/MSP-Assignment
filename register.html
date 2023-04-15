@@ -16,7 +16,7 @@
                 <img src="res/register.jpg" class="img-fluid">
             </div>
             <div class="col-sm-6">
-                <form name="form" id="register_form" method="post"  enctype="text/plain" novalidate="novalidate" action="" class="p-5" >
+                <form name="form" id="register_form" method="post"  enctype="text/plain" novalidate="novalidate"  class="p-5" onsubmit="return validateForm()">
                     <h1 class="mb-4" style="color: #454545;">Registration Form</h1>
                     <div class="row mb-3">
                         <label for="firstname" class="col-sm-4 col-form-label">First Name</label>
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="row">
-                        <button type="button" class="btn btn-block mt-3" style="background-color: #FF6000; color: #ffffff;">Register</button>
+                        <input type="submit" class="btn btn-block mt-3" style="background-color: #FF6000; color: #ffffff;" value="Register">
                         <label class="text-center mt-3">Already have an account? <a href="login.html" class="text-decoration-none">Log in</a></label>
                     </div>
                 </form>
