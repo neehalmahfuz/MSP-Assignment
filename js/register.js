@@ -37,6 +37,11 @@ function validateForm() {
         gErrorMsg = "";	//reset error message
         all_ok = false;
     }
+    if (all_ok){
+		storeBooking(firstname, lastname, birthdate, phone, state, email, password, gender);
+	}
+	
+	return all_ok;
   
 }
 
@@ -90,9 +95,21 @@ function chkBirthDate() {
         if (!pattern.test(birthdate)) {
             gErrorMsg = gErrorMsg + "Please enter a valid birthdate in the format MM/DD/YYYY.\n";
             birth_date_ok = false;
+        } else {
+            var selectedDate = new Date(birthdate);
+            var now = new Date();
+            var earliestBirthdate = new Date(now.getFullYear() - 100, now.getMonth(), now.getDate());
+            var latestBirthdate = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
+            if (selectedDate > now) {
+                gErrorMsg = gErrorMsg + "Your birthdate cannot be in the future.\n";
+                birth_date_ok = false;
+            } else if (selectedDate < earliestBirthdate) {
+                gErrorMsg = gErrorMsg + "Please enter a valid birthdate within the last 100 years.\n";
+                birth_date_ok = false;
+            } 
         }
     }
-return birth_date_ok;
+    return birth_date_ok;
 }
 
 // Validate Phone Number
@@ -173,6 +190,20 @@ function chkGender() {
         gender_ok = false;
     }
 return gender_ok;
+}
+
+
+// Keep user data in session
+function storeBooking(firstname, lastname, birthdate, phone, state, email, password, gender){
+	sessionStorage.firstname = firstname;
+	sessionStorage.lastname = lastname;
+    sessionStorage.birthdate = birthdate;
+	sessionStorage.phone = phone;
+	sessionStorage.email = email;
+	sessionStorage.state = state;
+	sessionStorage.password = password;
+	sessionStorage.gender = gender;
+
 }
 
 window.onload = initialize;
