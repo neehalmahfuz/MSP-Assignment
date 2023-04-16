@@ -83,18 +83,12 @@ return last_name_ok;
 // Validate Birth Date
 function chkBirthDate() {
     var birthdate = document.getElementById("birthdate").value;
-    var pattern = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
     var birth_date_ok = true;
     if ((birthdate.length == 0)) {
         gErrorMsg = gErrorMsg + "Please enter your birthdate.\n";
         birth_date_ok = false;
     }
-    else {
-        if (!pattern.test(birthdate)) {
-            gErrorMsg = gErrorMsg + "Please enter a valid birthdate in the format MM/DD/YYYY.\n";
-            birth_date_ok = false;
-        }
-    }
+    
 return birth_date_ok;
 }
 
