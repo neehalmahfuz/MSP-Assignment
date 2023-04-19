@@ -23,6 +23,7 @@
 </style>
 <body>
 <?php
+error_reporting(0);
 	$Username = "CAdmin";
 	$Password = "admin";
 	$Host = "localhost";
@@ -31,16 +32,19 @@
 	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <a class="navbar-brand ps-4" href="homepage.html">
+        <a class="navbar-brand ps-4" href="index.php">
             <img src="res/logo.png" height="50" class="d-inline-block align-top" alt="logo">
         </a>
         <div class="collapse navbar-collapse p-2 pe-4" id="navbar">
           <ul class="navbar-nav me-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="homepage.html">Home</a>
+              <a class="nav-link" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="AddTrainingOption.php">Trainings</a>
+              <a class="nav-link" href="AddTrainingOption.php">Add Training Option</a>
+            </li>
+			<li class="nav-item">
+              <a class="nav-link" href="TrainingOption.php">Training Option Catalog</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contactus.html">Contact Us</a>
@@ -51,7 +55,7 @@
                 <a class="nav-link" href="login.html">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
+                <a class="nav-link" href="registerAndy.php">Register</a>
             </li>
           </ul>
         </div>
@@ -93,7 +97,10 @@
 								<h4>RM<?php echo $row['PriceCourse']?></h4>
 							</div>
 							<p><?php echo $row['Description']?></p>
-							<a href="training_view.html" class="btn btn-training mt-2">View Training</a>
+							<?php
+							echo "<a href=\"TrainingView.php?Id=GetOption&OptionId=".$row['CourseName']."\" class = 'btn btn-training mt-2'>View Training</a>"
+							?>
+							
 						</div>
 					</div>
 					<?php

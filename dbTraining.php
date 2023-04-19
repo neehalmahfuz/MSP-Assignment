@@ -23,13 +23,15 @@ error_reporting(E_ALL);
 					ConpanyStatus VARCHAR(15))",
 				 "CREATE TABLE tblclientacc(
 				 	AccId INT(10) PRIMARY KEY AUTO_INCREMENT,
+					FirstName VARCHAR(30),
+					LastName VARCHAR(30),
 					UserIc VARCHAR(25),
-					CName VARCHAR(30),
-					CDOB DATE,
-					CPhone VARCHAR(20),
-					CAddress VARCHAR(40),
-					CEmail VARCHAR(40),
-					CGender VARCHAR(10))",
+					DOB DATE,
+					Phone VARCHAR(20),
+					State VARCHAR(20),
+					Email VARCHAR(40),
+					UserPassword VARCHAR(20),
+					Gender VARCHAR(20))",
 				 "CREATE TABLE tblenrollment(
 				 	EnrollId INT(10) PRIMARY KEY AUTO_INCREMENT,
 					CName VARCHAR(30),
@@ -65,14 +67,14 @@ error_reporting(E_ALL);
 					$tblResult = mysqli_query($Link,$tbl[$i]);
 				}
 				// example
-				$CheckStaffSQL = "SELECT * FROM tblclientacc WHERE CName = 'Andy'";
+				$CheckStaffSQL = "SELECT * FROM tblclientacc WHERE UserIc = '0123456789'";
 				$StaffResult = mysqli_query($Link,$CheckStaffSQL);
 				
 				if(mysqli_num_rows($StaffResult) == 0)
 				{
 					//example
-					$AdminSQL = "INSERT INTO tblclientacc (UserIc,CName,CDOB,CPhone,CAddress,CEmail,CGender)
-					VALUES ('001','Andy','2000-10-11','0168586118','NO22PASARJULAU','sookwangzheng@gmail.com','Male')";
+					$AdminSQL = "INSERT INTO tblclientacc(FirstName,LastName,UserIc,DOB,Phone,State,Email,UserPassword,Gender)
+					VALUES ('Andy','soo','0123456789','2000-10-11','0168586118','Sarawak','sookwangzheng@gmail.com','andysoo1011','Male')";
 					$AdminResult = mysqli_query($Link,$AdminSQL);
 				}
 			}
