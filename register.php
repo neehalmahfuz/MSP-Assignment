@@ -18,18 +18,25 @@
 
 <?php include("include/navbar.php");
     
+// Connect to database
+error_reporting(0);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "userdb";
     
+// default port is not working for mySQL, assign the new port manually, can discard this
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 
 
 
 /*$table = "CREATE TABLE user(
-    id INT(15) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
     birthDate DATE NOT NULL,
     phone INT(25) NOT NULL,
     state VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL PRIMARY KEY,
     password VARCHAR(255) NOT NULL,
     confirmPassword VARCHAR(255) NOT NULL,
     gender VARCHAR(255) NOT NULL
@@ -40,99 +47,62 @@ if (mysqli_query($conn,$table)){
 }*/
 
 
-$firstname = "";
-$lastname = "";
-$birthdate = "";
-$phone = "";
-$state = "";
-$email = "";
-$password = "";
-$confirmPassword = "";
-$gender = "";
-
-
-// Connect to database
-$servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "userdb";
+        
+if($_POST['btnRegister'])
+{
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
+    $confirmPassword = trim($_POST["confirm_password"]);
     
-    $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Handle form submission
-if (isset($_POST['submit'])) {
-    // Get form data
-    $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
-    $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
-    $birthdate = mysqli_real_escape_string($conn, $_POST['birthdate']);
-    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
-    $state = mysqli_real_escape_string($conn, $_POST['state']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
-    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-
-    // Validate form data
-    $errors = array();
-    if (empty($firstname)) {
-        $errors[] = "First name is required";
+    // Check if email already exists
+    $select = "SELECT * FROM user WHERE email = '$email'";
+    $result = mysqli_query($conn, $select);
+    if(mysqli_num_rows($result) > 0){
+        echo "<script>alert('User already exists!');</script>";
+        echo "<script>location='register.php';</script>";
     }
-    if (empty($lastname)) {
-        $errors[] = "Last name is required";
-    }
-    if (empty($birthdate)) {
-        $errors[] = "Birth date is required";
-    }
-    if (empty($phone)) {
-        $errors[] = "Phone number is required";
-    }
-    if (empty($state)) {
-        $errors[] = "State is required";
-    }
-    if (empty($email)) {
-        $errors[] = "Email address is required";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email address";
-    }
-    if (empty($password)) {
-        $errors[] = "Password is required";
-    }
-    if (empty($confirm_password)) {
-        $errors[] = "Confirm password is required";
-    } elseif ($password != $confirm_password) {
-        $errors[] = "Passwords do not match";
-    }
-    if (empty($gender)) {
-        $errors[] = "Gender is required";
-    }
-
-    // Insert user data into database if there are no errors
-    if (empty($errors)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO user (firstname, lastname, birthdate, phone, state, email, password, gender)
-                VALUES ('$firstname', '$lastname', '$birthdate', '$phone', '$state', '$email', '$hashed_password', '$gender')";
-        if (mysqli_query($conn, $sql)) {
-            echo "Registration successful";
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    else{
+        // Check if passwords match
+        if($password != $confirmPassword){
+            echo "<script>alert('Passwords do not match!');</script>";
+            echo "<script>location='register.php';</script>";
         }
-    } else {
-        foreach ($errors as $error) {
-            echo $error . "<br>";
+        else{
+            // password hashing
+            $password = password_hash($password, PASSWORD_BCRYPT);
+            $confirmPassword = password_hash($confirmPassword, PASSWORD_BCRYPT);
+            // Insert user data into database
+            $query = "INSERT INTO user(firstName, lastName, birthDate, phone, state, email, password, confirmPassword, gender)
+                VALUES(
+                '".trim($_POST["firstname"])."',
+                '".trim($_POST["lastname"])."',
+                '".trim($_POST["birthdate"])."',
+                '".(trim($_POST["phone"]))."',
+                '".(trim($_POST["state"]))."',
+                '$email',
+                '$password',
+                '$confirmPassword',
+                '".(trim($_POST["gender"]))."')";
+            
+            $register = mysqli_query($conn,$query);
+            if($register)
+            {
+                echo "<script>alert('New record created successfully');</script>";
+                echo "<script>location='login.php';</script>";
+            }
+            else{
+                echo "<script>alert('Something went wrong');</script>";
+                echo "<script>location='register.php';</script>";
+            }
         }
     }
 }
+else
+{
 
-// Close database connection
-mysqli_close($conn);
 
 
-?>
+?>    
     
 
 
@@ -146,7 +116,7 @@ mysqli_close($conn);
                 <img src="res/register.jpg" class="img-fluid">
             </div>
             <div class="col-sm-6">
-                <form name="form" id="register_form" method="post" action="login.php" enctype="text/plain" novalidate="novalidate"  class="p-5">
+                <form name="form" id="register_form" method="post" enctype="multipart/form-data" novalidate="novalidate"  class="p-5">
                     <h1 class="mb-4" style="color: #454545;">Registration Form</h1>
                     <div class="row mb-3">
                         <label for="firstname" class="col-sm-4 col-form-label">First Name</label>
@@ -163,7 +133,7 @@ mysqli_close($conn);
                     <div class="row mb-3">
                         <label for="birthdate" class="col-sm-4 col-form-label">Birth Date</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control mb-3" name="birthdate" id="birthdate">
+                            <input type="date" class="form-control mb-3" id="birthdate" name="birthdate">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -187,40 +157,43 @@ mysqli_close($conn);
                     <div class="row mb-3">
                         <label for="password" class="col-sm-4 col-form-label">Password</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control mb-3" name="password" id="password" placeholder="Your password">
+                            <input type="password" class="form-control mb-3" id="password" name="password" placeholder="Your password">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="confirm_password" class="col-sm-4 col-form-label">Confirm Password</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control mb-3" name="confirm_password" id="confirm_password" placeholder="Confirm your password">
+                            <input type="password" class="form-control mb-3" id="confirm_password" name="confirm_password" placeholder="Confirm your password">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="gender" class="col-sm-4 col-form-label">Gender</label>
                         <div class="col-sm-8">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="male">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value = "male">
                                 <label class="form-check-label" for="male">Male</label>
                               </div>
                               <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="female">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value = "female" >
                                 <label class="form-check-label" for="female">Female</label>
                               </div>
                               <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="other">
+                                <input class="form-check-input" type="radio" name="gender" id="gender" value="other">
                                 <label class="form-check-label" for="other">Other</label>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <input type="submit" class="btn btn-block mt-3" style="background-color: #FF6000; color: #ffffff;" value="Register" name="submit">
+                        <input type="submit" name = "btnRegister" id = "btnRegister" class="btn btn-block mt-3" style="background-color: #FF6000; color: #ffffff;" value="Register">
                         <label class="text-center mt-3">Already have an account? <a href="login.html" class="text-decoration-none">Log in</a></label>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <?php
+        }
+        ?>
 </body>
 </html>
