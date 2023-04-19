@@ -50,6 +50,17 @@ if (mysqli_query($conn,$table)){
         
 if($_POST['btnRegister'])
 {
+    //session storage
+    session_start();
+    
+    $_SESSION['firstname'] = trim($_POST["firstname"]);
+    $_SESSION['lastname'] = trim($_POST["lastname"]);
+    $_SESSION['birthdate'] = trim($_POST["birthdate"]);
+    $_SESSION['phone'] = trim($_POST["phone"]);
+    $_SESSION['state'] = trim($_POST["state"]);
+    $_SESSION['email'] = trim($_POST["email"]);
+    $_SESSION['gender'] = trim($_POST["gender"]);
+
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
     $confirmPassword = trim($_POST["confirm_password"]);
