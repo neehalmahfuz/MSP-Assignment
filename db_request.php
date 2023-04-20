@@ -7,7 +7,10 @@
         $Database = "dbrequest";
 
         $Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error(mysqli));
-        $tb1 = array("CREATE TABLE training_options(
+        $tb1 = array("CREATE TABLE clients(
+                                                id INT AUTO_INCREMENT PRIMARY KEY,
+                                                last_name VARCHAR(30)",
+                                                "CREATE TABLE training_options(
                                                     id INT AUTO_INCREMENT PRIMARY KEY,
                                                     option_name VARCHAR(255) NOT NULL,
                                                     description TEXT)",
