@@ -31,7 +31,7 @@ CREATE TABLE `paymentdetails` (
   `customerid` int(11) NOT NULL,
   `fname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
-  `country` enum('Malaysia','Indonesia','Japan','') NOT NULL,
+  `country` enum('Malaysia','Indonesia','Japan') NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(20) NOT NULL,
   `creditcard` bigint(16) NOT NULL
