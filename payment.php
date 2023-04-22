@@ -26,6 +26,9 @@ ini_set("date.timezone","Asia/Kuching");
 </style>
 <body>
 <?php
+
+include("include/navbar.php");
+
 error_reporting(0);
 	$Username = "CAdmin";
 	$Password = "admin";

@@ -7,21 +7,21 @@
         <div class="collapse navbar-collapse p-2 pe-4" id="navbar">
           <ul class="navbar-nav me-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="homepage.html">Home</a>
+              <a class="nav-link" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="training_option.html">Trainings</a>
+              <a class="nav-link" href="training_option.php">Trainings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contactus.html">Contact Us</a>
+              <a class="nav-link" href="contactus.php">Contact Us</a>
             </li>
           </ul>
           <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
+                <a class="nav-link" href="login.php">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
+                <a class="nav-link" href="register.php">Register</a>
             </li>
           </ul>
         </div>

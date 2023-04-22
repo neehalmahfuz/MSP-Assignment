@@ -23,6 +23,7 @@ error_reporting(E_ALL);
 					ConpanyStatus VARCHAR(15))",
 				 "CREATE TABLE user(
 				 	AccId INT(10) PRIMARY KEY AUTO_INCREMENT,
+<<<<<<< Updated upstream
 					firstName VARCHAR(30),
 					lastName VARCHAR(30),
 					birthDate DATE,
@@ -39,6 +40,17 @@ error_reporting(E_ALL);
 					PaymentMethod VARCHAR(20),
 					RequestTime DATETIME,
 					RequestStatus VARCHAR(20))",
+=======
+					FirstName VARCHAR(30),
+					LastName VARCHAR(30),
+					UserIc VARCHAR(25),
+					DOB DATE,
+					Phone VARCHAR(20),
+					State VARCHAR(20),
+					Email VARCHAR(40),
+					UserPassword VARCHAR(20),
+					Gender VARCHAR(20))",
+>>>>>>> Stashed changes
 				 "CREATE TABLE tblenrollment(
 				 	EnrollId INT(10) PRIMARY KEY AUTO_INCREMENT,
 					CName VARCHAR(30),
@@ -74,14 +86,23 @@ error_reporting(E_ALL);
 					$tblResult = mysqli_query($Link,$tbl[$i]);
 				}
 				// example
+<<<<<<< Updated upstream
 				$CheckStaffSQL = "SELECT * FROM user WHERE email = 'sookwangzheng@gmail.com'";
+=======
+				$CheckStaffSQL = "SELECT * FROM tblclientacc WHERE UserIc = '0123456789'";
+>>>>>>> Stashed changes
 				$StaffResult = mysqli_query($Link,$CheckStaffSQL);
 				
 				if(mysqli_num_rows($StaffResult) == 0)
 				{
 					//example
+<<<<<<< Updated upstream
 					$AdminSQL = "INSERT INTO user(firstName,lastName,birthDate,phone,state,email,password,confirmPassword,gender)
 					VALUES ('Andy','soo','2000-10-11','0168586118','Sarawak','sookwangzheng@gmail.com','andysoo1011','andysoo1011','Male')";
+=======
+					$AdminSQL = "INSERT INTO tblclientacc(FirstName,LastName,UserIc,DOB,Phone,State,Email,UserPassword,Gender)
+					VALUES ('Andy','soo','0123456789','2000-10-11','0168586118','Sarawak','sookwangzheng@gmail.com','andysoo1011','Male')";
+>>>>>>> Stashed changes
 					$AdminResult = mysqli_query($Link,$AdminSQL);
 				}
 			}

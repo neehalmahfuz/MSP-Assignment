@@ -23,6 +23,7 @@
 </style>
 <body class="h-100">
 <?php
+include("include/navbar.php");
 error_reporting(0);
 $Username = "CAdmin";
 	$Password = "admin";
@@ -32,35 +33,7 @@ $Username = "CAdmin";
 	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
 	
 ?>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <a class="navbar-brand ps-4" href="index.php">
-            <img src="res/logo.png" height="50" class="d-inline-block align-top" alt="logo">
-        </a>
-        <div class="collapse navbar-collapse p-2 pe-4" id="navbar">
-           <ul class="navbar-nav me-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="AddTrainingOption.php">Add Training Option</a>
-            </li>
-			<li class="nav-item">
-              <a class="nav-link" href="TrainingOption.php">Training Option Catalog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contactus.html">Contact Us</a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="registerAndy.php">Register</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+	
 
 <?php
 if($_POST['btnAddAccInfo'])
