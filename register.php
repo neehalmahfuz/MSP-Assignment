@@ -61,9 +61,9 @@ if($_POST['btnRegister'])
     $_SESSION['email'] = trim($_POST["email"]);
     $_SESSION['gender'] = trim($_POST["gender"]);
 
-    $email = trim($_POST["email"]);
-    $password = trim($_POST["password"]);
-    $confirmPassword = trim($_POST["confirm_password"]);
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $confirmPassword = $_POST["confirm_password"];
     
     // Check if email already exists
     $select = "SELECT * FROM user WHERE email = '$email'";
@@ -85,15 +85,15 @@ if($_POST['btnRegister'])
             // Insert user data into database
             $query = "INSERT INTO user(firstName, lastName, birthDate, phone, state, email, password, confirmPassword, gender)
                 VALUES(
-                '".trim($_POST["firstname"])."',
-                '".trim($_POST["lastname"])."',
-                '".trim($_POST["birthdate"])."',
-                '".(trim($_POST["phone"]))."',
-                '".(trim($_POST["state"]))."',
+                '".$_POST["firstname"]."',
+                '".$_POST["lastname"]."',
+                '".$_POST["birthdate"]."',
+                '".($_POST["phone"])."',
+                '".($_POST["state"])."',
                 '$email',
                 '$password',
                 '$confirmPassword',
-                '".(trim($_POST["gender"]))."')";
+                '".($_POST["gender"])."')";
             
             $register = mysqli_query($conn,$query);
             if($register)
