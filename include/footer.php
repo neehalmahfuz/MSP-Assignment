@@ -11,7 +11,7 @@
 
                     <div class="col-sm-3">
                         <h6 class="text-uppercase fw-bold mb-3">Quick Link</h6>
-                        <p><a href="homepage.php" class="text-reset">Home</a></p>
+                        <p><a href="index.php" class="text-reset">Home</a></p>
                         <p><a href="trainingOption.php" class="text-reset">Training Catalog</a></p>
                         <p><a href="contactus.php" class="text-reset">Contact Us</a></p>
                     </div>
@@ -28,7 +28,7 @@
     
         <div class="text-center p-4">
             <hr class="mb-4">
-        © 2023 Copyright: <a class="text-reset fw-bold" href="homepage.php">ETM - Expert Training</a>
+        © 2023 Copyright: <a class="text-reset fw-bold" href="index.php">ETM - Expert Training</a>
         </div>
     </footer>';
 ?>

@@ -44,7 +44,7 @@ if(isset($_POST['btnLogin']))
         $_SESSION['email'] = $row['email'];
         $_SESSION['gender'] = $row['gender'];
         
-        header("Location: homepage.php"); // Redirect to homepage
+        header("Location: index.php"); // Redirect to homepage
         exit();
     }
     else{
