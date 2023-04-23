@@ -1,12 +1,15 @@
 <?php  
         error_reporting(0);
         ini_set("date.timezone","Asia/Kuching");
-        $Username = "CAdmin";
-        $Password = "admin";
-        $Host = "localhost";
-        $Database = "dbrequest";
-
-        $Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error(mysqli));
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "database";
+        $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+        // Check if connection was successful
+        if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+        }
         $tb1 = array("CREATE TABLE training_options(
                                                     id INT AUTO_INCREMENT PRIMARY KEY,
                                                     option_name VARCHAR(255) NOT NULL,
@@ -28,17 +31,17 @@
                                                     FOREIGN KEY (training_date_id) REFERENCES training_dates(id),
                                                     FOREIGN KEY (venue_id) REFERENCES venues(id)
                                                 )",);
-                    if($Link)
+                    if($conn)
                     {
-                        if(!mysqli_select_db($Link,$Database))
+                        if(!mysqli_select_db($conn,$Database))
                         {
                             $SQL = "CREATE DATABASE ".$Database;
-                            $Result = mysqli_query($Link,$SQL);
-                            mysqli_select_db($Link,$Database);
+                            $Result = mysqli_query($conn,$SQL);
+                            mysqli_select_db($conn,$Database);
                         }
                         for($i = 0;$i < count($tbl);++$i)
                         {
-                            $tblResult = mysqli_query($Link,$tbl[$i]);
+                            $tblResult = mysqli_query($conn,$tbl[$i]);
                         }
                     }
 ?>

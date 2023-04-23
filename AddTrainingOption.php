@@ -25,13 +25,15 @@
 <?php
 include("include/navbar.php");
 error_reporting(0);
-$Username = "CAdmin";
-	$Password = "admin";
-	$Host = "localhost";
-	$Database = "dbtraining";
-
-	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
-	
+$servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "database";
+    $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+    // Check if connection was successful
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
 ?>
 	
 
@@ -53,7 +55,7 @@ if($_POST['btnAddAccInfo'])
 		'Jacky lim',
 		'B001',
 		'Open')";
-		$CourseInfoResult = mysqli_query($Link,$AddCourseInfo);
+		$CourseInfoResult = mysqli_query($conn,$AddCourseInfo);
 		if($CourseInfoResult)
 		{
 			echo "<script>alert('New record created successfully');</script>";

@@ -1,7 +1,7 @@
 <?php
     echo
         '<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <a class="navbar-brand ps-4" href="homepage.html">
+        <a class="navbar-brand ps-4" href="homepage.php">
             <img src="res/logo.png" height="50" class="d-inline-block align-top" alt="logo">
         </a>
         <div class="collapse navbar-collapse p-2 pe-4" id="navbar">

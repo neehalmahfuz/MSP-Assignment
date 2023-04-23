@@ -25,19 +25,18 @@
 <?php
 error_reporting(0);
 include("include/navbar.php");
-	$Username = "CAdmin";
-	$Password = "admin";
-	$Host = "localhost";
-	$Database = "dbtraining";
-
-	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "database";
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 ?>
    
 <?php
 	if($_GET['Id'] == "GetOption" && $_GET['OptionId'] != "")
 	{
 		$SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
-		$SelectOptionRs = mysqli_query($Link,$SelectOption);
+		$SelectOptionRs = mysqli_query($conn,$SelectOption);
 		if(mysqli_num_rows($SelectOptionRs) > 0)
 		{
 			while($Selectrow = mysqli_fetch_array($SelectOptionRs))
@@ -168,7 +167,7 @@ include("include/navbar.php");
             <h5>Other Trainings</h5>
             <?php
 			$DisCourse = "SELECT * FROM tblcourse ORDER BY RAND() LIMIT 3";
-			$DisCourseRs = mysqli_query($Link,$DisCourse);
+			$DisCourseRs = mysqli_query($conn,$DisCourse);
 
 			if(mysqli_num_rows($DisCourseRs) > 0)
 			{

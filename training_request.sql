@@ -18,19 +18,9 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `training_request`
+-- Database: `database`
 --
 
--- --------------------------------------------------------
-
---
--- Table structure for table `clients`
---
-
-CREATE TABLE `clients` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -62,7 +52,7 @@ CREATE TABLE `trainings` (
 
 CREATE TABLE `training_requests` (
   `id` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `training_id` int(11) NOT NULL,
   `time` datetime NOT NULL,
   `date` date NOT NULL,
@@ -98,12 +88,6 @@ CREATE TABLE `training_venues` (
 --
 
 --
--- Indexes for table `clients`
---
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `custom_requests`
 --
 ALTER TABLE `custom_requests`
@@ -120,7 +104,7 @@ ALTER TABLE `trainings`
 --
 ALTER TABLE `training_requests`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `client_id` (`client_id`),
+  ADD KEY `email` (`email`),
   ADD KEY `training_id` (`training_id`),
   ADD KEY `status_id` (`status_id`),
   ADD KEY `venue_id` (`venue_id`),
@@ -141,12 +125,6 @@ ALTER TABLE `training_venues`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `clients`
---
-ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `custom_requests`
@@ -186,7 +164,7 @@ ALTER TABLE `training_venues`
 -- Constraints for table `training_requests`
 --
 ALTER TABLE `training_requests`
-  ADD CONSTRAINT `training_requests_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
+  ADD CONSTRAINT `training_requests_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`),
   ADD CONSTRAINT `training_requests_ibfk_2` FOREIGN KEY (`training_id`) REFERENCES `trainings` (`id`),
   ADD CONSTRAINT `training_requests_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `training_statuses` (`id`),
   ADD CONSTRAINT `training_requests_ibfk_4` FOREIGN KEY (`venue_id`) REFERENCES `training_venues` (`id`),

@@ -16,7 +16,7 @@ error_reporting(0);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "userdb";
+$dbname = "database";
 $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 // Check if connection was successful
 if (!$conn) {

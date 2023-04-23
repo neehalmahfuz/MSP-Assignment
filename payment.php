@@ -30,20 +30,23 @@ ini_set("date.timezone","Asia/Kuching");
 include("include/navbar.php");
 
 error_reporting(0);
-	$Username = "CAdmin";
-	$Password = "admin";
-	$Host = "localhost";
-	$Database = "dbtraining";
-
-	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
-	include("include/navbar.php");
+	// Connect to database
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "database";
+    $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+    // Check if connection was successful
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
 	
 	if($_POST['place_order']){
 		$datetime = new DateTime();
 		$datetime_str = $datetime->format('Y-m-d H:i:s');
 		
 		$SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
-		$SelectOptionRs = mysqli_query($Link,$SelectOption);
+		$SelectOptionRs = mysqli_query($conn,$SelectOption);
 		if(mysqli_num_rows($SelectOptionRs) > 0)
 		{
 			$Selectrow = mysqli_fetch_array($SelectOptionRs);
@@ -54,7 +57,7 @@ error_reporting(0);
 			'".trim($_POST["method"])."',
 			'".$datetime_str."',
 			'Pending')";
-			$RequestInfoResult = mysqli_query($Link,$AddRequestInfo);
+			$RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
 			if($RequestInfoResult)
 			{
 				echo "<script>alert('New record created successfully');</script>";
@@ -68,7 +71,7 @@ error_reporting(0);
 	else if($_GET['Id'] == "GetOption" && $_GET['OptionId'] != "")
 	{
 		$SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
-		$SelectOptionRs = mysqli_query($Link,$SelectOption);
+		$SelectOptionRs = mysqli_query($conn,$SelectOption);
 		if(mysqli_num_rows($SelectOptionRs) > 0)
 		{
 			while($Selectrow = mysqli_fetch_array($SelectOptionRs))

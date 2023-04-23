@@ -6,8 +6,12 @@
   $password = $_POST['password'];
   $creditcard = $_POST['creditcard'];
 
-  //Database connection
-  $conn = new mysqli('localhost','root','','dbpayment');
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "database";
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+
   if($conn->connect_error){
     die('Connection Failed : '.$conn->connect_error);
   }else{
@@ -21,3 +25,5 @@
 
   }
 ?>
+
+

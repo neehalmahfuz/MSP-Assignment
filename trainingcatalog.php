@@ -12,12 +12,11 @@
 
 <body>
 <?php
-	$Username = "CAdmin";
-	$Password = "admin";
-	$Host = "localhost";
-	$Database = "dbtraining";
-
-	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "database";
+	$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 ?>
 <a href="index.php">Home</a>
 <a href="trainingcatalog.php">Training catalog</a>
@@ -26,7 +25,7 @@
 
 	<?php
 		echo $DisProfile = "SELECT * FROM tblcourse";
-		$DisProfileRs = mysqli_query($Link,$DisProfile);
+		$DisProfileRs = mysqli_query($conn,$DisProfile);
 		if(mysqli_num_rows($DisProfileRs) > 0)
 		{
 			echo '<form id="form1" name="form1" method="post" action="">';

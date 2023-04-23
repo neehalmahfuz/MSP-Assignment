@@ -25,12 +25,11 @@
 <?php
 error_reporting(0);
 include("include/navbar.php");
-	$Username = "CAdmin";
-	$Password = "admin";
-	$Host = "localhost";
-	$Database = "dbtraining";
-
-	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "database";
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 ?>
 
     <div class="container-fluid px-4">
@@ -45,7 +44,7 @@ include("include/navbar.php");
             
            <?php
 			$DisProfile = "SELECT * FROM tblcourse";
-			$DisProfileRs = mysqli_query($Link,$DisProfile);
+			$DisProfileRs = mysqli_query($conn,$DisProfile);
 
 			if(mysqli_num_rows($DisProfileRs) > 0)
 			{

@@ -18,34 +18,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbtraining`
+-- Database: `database`
 --
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `tblclientacc`
---
-
-CREATE TABLE `tblclientacc` (
-  `AccId` int(10) NOT NULL,
-  `UserIc` varchar(25) DEFAULT NULL,
-  `CName` varchar(30) DEFAULT NULL,
-  `CDOB` date DEFAULT NULL,
-  `CPhone` varchar(20) DEFAULT NULL,
-  `CAddress` varchar(40) DEFAULT NULL,
-  `CEmail` varchar(40) DEFAULT NULL,
-  `CGender` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tblclientacc`
---
-
-INSERT INTO `tblclientacc` (`AccId`, `UserIc`, `CName`, `CDOB`, `CPhone`, `CAddress`, `CEmail`, `CGender`) VALUES
-(1, '001', 'Andy', '2000-10-11', '0168586118', 'NO22PASARJULAU', 'sookwangzheng@gmail.com', 'Male');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `tblcourse`
@@ -132,12 +109,6 @@ CREATE TABLE `tblschedule` (
 --
 
 --
--- Indexes for table `tblclientacc`
---
-ALTER TABLE `tblclientacc`
-  ADD PRIMARY KEY (`AccId`);
-
---
 -- Indexes for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
@@ -171,13 +142,7 @@ ALTER TABLE `tblschedule`
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `tblclientacc`
---
-ALTER TABLE `tblclientacc`
-  MODIFY `AccId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`

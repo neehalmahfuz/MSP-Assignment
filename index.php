@@ -24,12 +24,11 @@
 <?php
 error_reporting(0);
 include("include/navbar.php");
-$Username = "CAdmin";
-	$Password = "admin";
-	$Host = "localhost";
-	$Database = "dbtraining";
-
-	$Link = mysqli_connect($Host,$Username,$Password,$Database) or die(mysqli_error());
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "database";
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 	
 ?>
  
@@ -135,7 +134,7 @@ $Username = "CAdmin";
             
             <?php
 			$DisCourse = "SELECT * FROM tblcourse ORDER BY RAND() LIMIT 3";
-			$DisCourseRs = mysqli_query($Link,$DisCourse);
+			$DisCourseRs = mysqli_query($conn,$DisCourse);
 
 			if(mysqli_num_rows($DisCourseRs) > 0)
 			{
