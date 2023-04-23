@@ -184,37 +184,9 @@ $Username = "CAdmin";
         </div>
     </div>
 
-    <footer class="text-center text-lg-start bg-light text-muted mt-5 pt-3">
-        <section>
-            <div class="container text-center text-md-start mt-5">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <h6 class="text-uppercase fw-bold mb-3">ETM - Training Expert</h6>
-                        <p> ETM is a Sarawak-based training company that offers in-house or on-site training to business and staff.</p>
-                    </div>
-
-                    <div class="col-sm-3">
-                        <h6 class="text-uppercase fw-bold mb-3">Quick Link</h6>
-                        <p><a href="homepage.html" class="text-reset">Home</a></p>
-                        <p><a href="training_option.html" class="text-reset">Training Catalog</a></p>
-                        <p><a href="contactus.html" class="text-reset">Contact Us</a></p>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <h6 class="text-uppercase fw-bold mb-3">Contact</h6>
-                        <p> Sarawak, Malaysia</p>
-                        <p> etm@example.com </p>
-                        <p>+ 01 234 567 88</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    
-        <div class="text-center p-4">
-            <hr class="mb-4">
-        © 2023 Copyright: <a class="text-reset fw-bold" href="homepage.html">ETM - Expert Training</a>
-        </div>
-    </footer>
+    <?php
+    include("include/footer.php");
+    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

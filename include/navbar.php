@@ -10,7 +10,7 @@
               <a class="nav-link" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="training_option.php">Trainings</a>
+              <a class="nav-link" href="TrainingOption.php">Trainings</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contactus.php">Contact Us</a>

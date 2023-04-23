@@ -76,31 +76,31 @@ if($_POST['btnAddAccInfo'])
                 <form name="form" id="form" method="post" enctype="multipart/form-data" novalidate="novalidate"  class="p-5">
                     <h1 class="mb-4" style="color: #454545;">Add Training Option Form</h1>
                     <div class="row mb-3">
-                        <label for="firstname" class="col-sm-4 col-form-label">Course Name </label>
+                        <label for="txtCourseName" class="col-sm-4 col-form-label">Course Name </label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control mb-3" id="txtCourseName" name = "txtCourseName" placeholder="Course Name">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="lastname" class="col-sm-4 col-form-label">Price</label>
+                        <label for="textPrice" class="col-sm-4 col-form-label">Price</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control mb-3" id="textPrice" name = "textPrice" placeholder="Price">
                         </div>
                     </div>
 					<div class="row mb-3">
-                        <label for="lastname" class="col-sm-4 col-form-label">Duration</label>
+                        <label for="textDuration" class="col-sm-4 col-form-label">Duration</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control mb-3" id="textDuration" name="textDuration"placeholder="Duration">
                         </div>
                     </div>
 					<div class="row mb-3">
-                        <label for="lastname" class="col-sm-4 col-form-label">Description</label>
+                        <label for="DescriptionTxtArea" class="col-sm-4 col-form-label">Description</label>
                         <div class="col-sm-8">
                             <input type="textarea" class="form-control mb-3" rows="4" cols="40" id="DescriptionTxtArea" name="DescriptionTxtArea" placeholder="Description">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <label for="phone" class="col-sm-4 col-form-label">Course Image</label>
+                        <label for="CourseImage" class="col-sm-4 col-form-label">Course Image</label>
                         <div class="col-sm-8">
 							<input type = "file" id = "CourseImage" name = "CourseImage" class="form-control mb-3" value = "<?php echo $EditRow['CourseImage'];?>">
                         </div>
