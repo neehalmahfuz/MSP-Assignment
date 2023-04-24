@@ -193,7 +193,9 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 								<h4>RM<?php echo $row['PriceCourse']?></h4>
 							</div>
 							<p><?php echo $row['Description']?></p>
-							<a href="TrainingView.php" class="btn btn-training mt-2">View Training</a>
+							<?php
+							echo "<a href=\"TrainingView.php?Id=GetOption&OptionId=".$row['CourseName']."\" class = 'btn btn-training mt-2'>View Training</a>"
+							?>
 						</div>
 					</div>
 					<?php
