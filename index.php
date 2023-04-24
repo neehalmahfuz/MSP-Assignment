@@ -31,7 +31,7 @@
     }
 
     .training-option-desc {
-        height: 100px;
+        height: 50px;
         overflow: hidden;
     }
 </style>
