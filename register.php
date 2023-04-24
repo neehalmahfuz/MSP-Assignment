@@ -23,7 +23,7 @@ error_reporting(0);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "userdb";
+$dbname = "database";
     
 // default port is not working for mySQL, assign the new port manually, can discard this
 $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
@@ -79,9 +79,7 @@ if($_POST['btnRegister'])
             echo "<script>location='register.php';</script>";
         }
         else{
-            // password hashing
-            $password = password_hash($password, PASSWORD_BCRYPT);
-            $confirmPassword = password_hash($confirmPassword, PASSWORD_BCRYPT);
+        
             // Insert user data into database
             $query = "INSERT INTO user(firstName, lastName, birthDate, phone, state, email, password, confirmPassword, gender)
                 VALUES(
