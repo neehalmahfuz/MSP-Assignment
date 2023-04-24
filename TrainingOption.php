@@ -20,6 +20,21 @@
         background-color: #FFFFFF;
         color: #FF6000;
     }
+
+    .training-option-title {
+        height: 60px; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .training-option-price {
+        white-space: nowrap; 
+    }
+
+    .training-option-desc {
+        height: 50px;
+        overflow: hidden;
+    }
 </style>
 <body>
 <?php
@@ -64,10 +79,10 @@ $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 							echo $Img = '<img src="CourseImage/'.$listImg.'" height = 200 width = "435"/>';
 							?>
 							<div class="d-flex mt-2 justify-content-between">
-								<h4><?php echo $row['CourseName']?></h4>
-								<h4>RM<?php echo $row['PriceCourse']?></h4>
+								<h4 class="training-option-title"><?php echo $row['CourseName']?></h4>
+								<h4 class="training-option-price ps-4">RM<?php echo $row['PriceCourse']?></h4>
 							</div>
-							<p><?php echo $row['Description']?></p>
+							<p class="training-option-desc"><?php echo $row['Description']?></p>
 							<?php
 							echo "<a href=\"TrainingView.php?Id=GetOption&OptionId=".$row['CourseName']."\" class = 'btn btn-training mt-2'>View Training</a>"
 							?>
