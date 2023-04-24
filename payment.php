@@ -29,7 +29,6 @@ ini_set("date.timezone","Asia/Kuching");
 
 include("include/navbar.php");
 
-error_reporting(0);
 	// Connect to database
     $servername = "localhost";
     $username = "root";
