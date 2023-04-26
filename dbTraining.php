@@ -38,6 +38,7 @@ error_reporting(E_ALL);
 					email VARCHAR(40),
 					CourseName VARCHAR(40),
 					PaymentMethod VARCHAR(20),
+					CreditCardNum VARCHAR(20),
 					RequestTime DATETIME,
 					RequestStatus VARCHAR(20))",
 =======

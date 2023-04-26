@@ -1,5 +1,5 @@
 <?php
-session_start();
+error_reporting(0);
 ini_set("date.timezone","Asia/Kuching");
 ?>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@ include("include/navbar.php");
     $username = "root";
     $password = "";
     $dbname = "database";
-    $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+    $conn = mysqli_connect($servername, $username, $password, $dbname,3307);
     // Check if connection was successful
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
@@ -44,28 +44,38 @@ include("include/navbar.php");
 		$datetime = new DateTime();
 		$datetime_str = $datetime->format('Y-m-d H:i:s');
 
-		$SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
-		$SelectOptionRs = mysqli_query($conn,$SelectOption);
-		if(mysqli_num_rows($SelectOptionRs) > 0)
-		{
-			$Selectrow = mysqli_fetch_array($SelectOptionRs);
-			$AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,PaymentMethod,RequestTime,RequestStatus)
-			VALUES(
-			'".trim($_POST["email"])."',
-			'".trim($Selectrow['CourseName'])."',
-			'".trim($_POST["method"])."',
-			'".$datetime_str."',
-			'Pending')";
-			$RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
-			if($RequestInfoResult)
-			{
-				echo "<script>alert('New record created successfully');</script>";
-				echo "<script>location='index.php';</script>";
-			}
-			else
-				echo "<script>alert('Something wrong');</script>";
-			echo "<script>location='index.php';</script>";
-		}
+        $CheckEmail = "SELECT * FROM user WHERE email = '".$_POST['email']."' AND password = '".$_POST['password']."' ";
+        $CheckEmailRs = mysqli_query($conn,$CheckEmail);
+		if(mysqli_num_rows($CheckEmailRs) > 0){
+            $SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
+            $SelectOptionRs = mysqli_query($conn,$SelectOption);
+            if(mysqli_num_rows($SelectOptionRs) > 0)
+            {
+                $Selectrow = mysqli_fetch_array($SelectOptionRs);
+                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,PaymentMethod,CreditCardNum,RequestTime,RequestStatus)
+                VALUES(
+                '".trim($_POST["email"])."',
+                '".trim($Selectrow['CourseName'])."',
+                '".trim($_POST["method"])."',
+                '".trim($_POST['creditcard'])."',
+                '".$datetime_str."',
+                'Pending')";
+                $RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
+                if($RequestInfoResult)
+                {
+                    echo "<script>alert('New record created successfully');</script>";
+                    echo "<script>location='index.php';</script>";
+                }
+                else
+                    echo "<script>alert('Something wrong');</script>";
+                echo "<script>location='index.php';</script>";
+            }
+        }
+        else{
+            echo "<script>alert('Email or Password is incorrect');</script>";
+                echo "<script>location='index.php';</script>";
+        }
+		
 	}
 	else if($_GET['Id'] == "GetOption" && $_GET['OptionId'] != "")
 	{
@@ -84,10 +94,10 @@ include("include/navbar.php");
 
                 <form name="form" id="form" method="POST" >
                     <label for="email">Email Address</label>
-                    <input type="email" class="form-control mb-3" id="email" name = "email" placeholder="Your email address" value = "<?php echo $_SESSION['email'] ?>">
+                    <input type="email" class="form-control mb-3" id="email" name = "email" placeholder="Your email address">
 
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control mb-3" id="phone" name="phone" placeholder="Your phone" value = "<?php echo $_SESSION['phone'] ?>">
+                    <label for="password">password</label>
+                    <input type="password" class="form-control mb-3" id="password" name="password" placeholder="Your user account password">
 
             </div>
             <div class="col-sm-6">
