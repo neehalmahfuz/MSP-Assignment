@@ -166,7 +166,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 						<div class="shadow p-3 bg-white rounded">
 							<?php
 							$listImg = $row['ImageCourse'];
-							echo $Img = '<img src="CourseImage/'.$listImg.'" height = 200 width = "400"/>';
+							echo $Img = '<img src="CourseImage/'.$listImg.'" class="w-100" height=250/>';
 							?>
 							<div class="d-flex mt-2 justify-content-between">
 								<h4 class="training-option-title"><?php echo $row['CourseName']?></h4>
