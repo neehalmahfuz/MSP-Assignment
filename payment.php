@@ -39,11 +39,11 @@ include("include/navbar.php");
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-	
+
 	if($_POST['place_order']){
 		$datetime = new DateTime();
 		$datetime_str = $datetime->format('Y-m-d H:i:s');
-		
+
 		$SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
 		$SelectOptionRs = mysqli_query($conn,$SelectOption);
 		if(mysqli_num_rows($SelectOptionRs) > 0)
@@ -81,21 +81,8 @@ include("include/navbar.php");
         <div class="row my-5">
             <h2>Checkout</h2>
             <div class="col-sm-6">
-			
+
                 <form name="form" id="form" method="POST" >
-                    <label for="fname">First Name</label>
-                    <input type="text" class="form-control mb-3" id="fname" name="fname" placeholder="Your first name" value = "<?php echo $_SESSION['firstname'] ?>">
-
-                    <label for="lname">Last Name</label>
-                    <input type="text" class="form-control mb-3" id="lname" name="lname" placeholder="Your last name" value = "<?php echo $_SESSION['lastname'] ?>">
-
-                    <label for="country">Country</label>
-                    <select name="country" id="country" class="form-control mb-3" name = "country">
-                        <option value="Malaysia">Malaysia</option>
-                        <option value="Indonesia">Indonesia</option>
-                        <option value="Japan">Japan</option>
-                    </select>
-
                     <label for="email">Email Address</label>
                     <input type="email" class="form-control mb-3" id="email" name = "email" placeholder="Your email address" value = "<?php echo $_SESSION['email'] ?>">
 
@@ -143,7 +130,7 @@ include("include/navbar.php");
                       Cash
                     </label>
                 </div>
-				
+
                 <input type="submit" name="place_order" id="place_order" class="btn btn-training btn-block w-100 mt-3" value="Request training">
                 </form>
             </div>
