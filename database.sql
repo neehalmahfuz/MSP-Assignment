@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: Apr 24, 2023 at 07:02 AM
+-- Host: 127.0.0.1
+-- Generation Time: May 03, 2023 at 04:16 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -90,29 +90,6 @@ CREATE TABLE `tblenrollment` (
   `ScheduleId` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE tbltrainingrequest(
-				 	`RequestId` INT(11),
-					`email` VARCHAR(40),
-					`CourseName` VARCHAR(40),
-					`PaymentMethod` VARCHAR(20),
-					`RequestTime` DATETIME,
-					`RequestStatus` VARCHAR(20)
-          )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbltrainingrequest`
---
-
-INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `RequestTime`, `RequestStatus`) VALUES
-(1, 'sookwangzheng@gmail.com', NULL, 'Cash', '2023-04-22 09:52:10', 'Pending'),
-(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', '2023-04-22 09:54:54', 'Pending'),
-(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '2023-04-22 15:57:24', 'Pending');
-
---
--- Indexes for dumped tables
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -152,6 +129,31 @@ CREATE TABLE `tblschedule` (
   `EndTime` datetime DEFAULT NULL,
   `ScheduleStatus` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltrainingrequest`
+--
+
+CREATE TABLE `tbltrainingrequest` (
+  `RequestId` int(11) NOT NULL,
+  `email` varchar(40) DEFAULT NULL,
+  `CourseName` varchar(40) DEFAULT NULL,
+  `PaymentMethod` varchar(20) DEFAULT NULL,
+  `CreditCardNum` varchar(20) DEFAULT NULL,
+  `RequestTime` datetime DEFAULT NULL,
+  `RequestStatus` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbltrainingrequest`
+--
+
+INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `RequestTime`, `RequestStatus`) VALUES
+(1, 'sookwangzheng@gmail.com', NULL, 'Cash', NULL, '2023-04-22 09:52:10', 'Pending'),
+(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, '2023-04-22 09:54:54', 'Pending'),
+(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '1234567890', '2023-04-22 15:57:24', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -216,6 +218,7 @@ CREATE TABLE `user` (
   `phone` int(25) NOT NULL,
   `state` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `accType` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `confirmPassword` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL
@@ -225,16 +228,17 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`firstName`, `lastName`, `birthDate`, `phone`, `state`, `email`, `password`, `confirmPassword`, `gender`) VALUES
-('A', 'B', '2023-03-08', 1131407894, 'S', '123@gmail.com', '$2y$10$FuzS77B8qVNKOuqe9B037.BscOVxhAxWs7w2FPd0Q1chZCyJJBi7.', '$2y$10$NKoeYnZxbaq/rriYqklqueCuW8AAgn3Nisld4QTjVSY5VLISdWj2S', 'female'),
-('ABCD', 'ABCD', '2023-04-24', 123456789, 'Sarawak', 'abcd@gmail.com', 'abcd1234', 'abcd1234', 'female'),
-('A', 'B', '2023-04-20', 1131407894, 'Sarawak', 'chai', '$2y$10$/ZwJC/BbHxmsSH73ROio1eEqsQbbSpq2YYI4/3W5G0eaxAA3/0sa2', '$2y$10$h7IC0K30HuVJD7xcT9bGyekMfCDkJPFLI67K/h.7CrMuIKtrlOdZe', 'female'),
-('A', 'A', '2023-04-20', 1131407894, 'S', 'chai@gmail.com', 'Wanyie513', 'Wanyie513', 'female'),
-('AA', 'BBB', '2023-04-20', 1131407894, 'W', 'hello@gmail.com', '$2y$10$tbqjE.rdexxn1/MPDYXBPektf7/42o40OY5RKOoTYxZ7OmWp3ZEP6', 'test123', 'male'),
-('', 'A', '2023-04-20', 123456789, 'S', 'wanyie@gmail.com', '$2y$10$1WaKj7OLQR2i6RuVi5K1m.kCEfvBPgWMtjx6ckP/m87KidjJ3UoaG', '$2y$10$0dt5dMXAH.AGvq2TqBs5f.U78o01SahcSw4ijWP1pZesyibNE1lqy', 'female'),
-('C', 'W', '2023-04-22', 1111111, 'S', 'www@gmail.com', '$2y$10$ZLQf0YufejTAKlOy8zTJierOJjWQJNPzRsHfZO2d.4dPbd80qhdC.', '$2y$10$SJc1yQJ.ZTJ2DVcxLhizAe6dhx/i5NhB7ceTidJp3.hAddlBrlp.C', 'female'),
-('Hello', 'World', '2023-04-20', 1131407894, 'Sarawak', 'yie1@gmail.com', '1234567', '1234567', 'male'),
-('Hello', 'World', '2023-04-20', 1131407894, 'Sarawak', 'yie@gmail.com', 'Wanyie513', 'Wanyie513', 'female');
+INSERT INTO `user` (`firstName`, `lastName`, `birthDate`, `phone`, `state`, `email`, `accType`, `password`, `confirmPassword`, `gender`) VALUES
+('A', 'B', '2023-03-08', 1131407894, 'S', '123@gmail.com', 'Client', '$2y$10$FuzS77B8qVNKOuqe9B037.BscOVxhAxWs7w2FPd0Q1chZCyJJBi7.', '$2y$10$NKoeYnZxbaq/rriYqklqueCuW8AAgn3Nisld4QTjVSY5VLISdWj2S', 'female'),
+('ABCD', 'ABCD', '2023-04-24', 123456789, 'Sarawak', 'abcd@gmail.com', 'Client', 'abcd1234', 'abcd1234', 'female'),
+('A', 'B', '2023-04-20', 1131407894, 'Sarawak', 'chai', 'Client', '$2y$10$/ZwJC/BbHxmsSH73ROio1eEqsQbbSpq2YYI4/3W5G0eaxAA3/0sa2', '$2y$10$h7IC0K30HuVJD7xcT9bGyekMfCDkJPFLI67K/h.7CrMuIKtrlOdZe', 'female'),
+('A', 'A', '2023-04-20', 1131407894, 'S', 'chai@gmail.com', 'Client', 'Wanyie513', 'Wanyie513', 'female'),
+('AA', 'BBB', '2023-04-20', 1131407894, 'W', 'hello@gmail.com', 'Client', '$2y$10$tbqjE.rdexxn1/MPDYXBPektf7/42o40OY5RKOoTYxZ7OmWp3ZEP6', 'test123', 'male'),
+('Andy', 'soo', '2000-10-11', 168586118, 'Sarawak', 'sookwangzheng@gmail.com', 'Admin', 'andysoo1011', 'andysoo1011', 'Male'),
+('', 'A', '2023-04-20', 123456789, 'S', 'wanyie@gmail.com', 'Client', '$2y$10$1WaKj7OLQR2i6RuVi5K1m.kCEfvBPgWMtjx6ckP/m87KidjJ3UoaG', '$2y$10$0dt5dMXAH.AGvq2TqBs5f.U78o01SahcSw4ijWP1pZesyibNE1lqy', 'female'),
+('C', 'W', '2023-04-22', 1111111, 'S', 'www@gmail.com', 'Client', '$2y$10$ZLQf0YufejTAKlOy8zTJierOJjWQJNPzRsHfZO2d.4dPbd80qhdC.', '$2y$10$SJc1yQJ.ZTJ2DVcxLhizAe6dhx/i5NhB7ceTidJp3.hAddlBrlp.C', 'female'),
+('Hello', 'World', '2023-04-20', 1131407894, 'Sarawak', 'yie1@gmail.com', 'Client', '1234567', '1234567', 'male'),
+('Hello', 'World', '2023-04-20', 1131407894, 'Sarawak', 'yie@gmail.com', 'Client', 'Wanyie513', 'Wanyie513', 'female');
 
 --
 -- Indexes for dumped tables
@@ -251,13 +255,6 @@ ALTER TABLE `custom_requests`
 --
 ALTER TABLE `paymentdetails`
   ADD PRIMARY KEY (`customerid`);
-
---
--- Indexes for table `tbltrainingrequest`
---
-ALTER TABLE `tbltrainingrequest`
-  ADD PRIMARY KEY (`RequestId`);
-
 
 --
 -- Indexes for table `tblcourse`
@@ -288,6 +285,12 @@ ALTER TABLE `tbllocation`
 --
 ALTER TABLE `tblschedule`
   ADD PRIMARY KEY (`ScheduleId`);
+
+--
+-- Indexes for table `tbltrainingrequest`
+--
+ALTER TABLE `tbltrainingrequest`
+  ADD PRIMARY KEY (`RequestId`);
 
 --
 -- Indexes for table `trainings`
@@ -341,17 +344,10 @@ ALTER TABLE `paymentdetails`
   MODIFY `customerid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tbltrainingrequest`
---
-ALTER TABLE `tbltrainingrequest`
-  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT;
-
-
---
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
-  MODIFY `CourseId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `CourseId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblenrollment`
@@ -376,6 +372,12 @@ ALTER TABLE `tbllocation`
 --
 ALTER TABLE `tblschedule`
   MODIFY `ScheduleId` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbltrainingrequest`
+--
+ALTER TABLE `tbltrainingrequest`
+  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `trainings`
