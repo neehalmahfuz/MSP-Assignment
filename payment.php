@@ -87,7 +87,7 @@ include("include/navbar.php");
 			{
 				$SelectImg = $Selectrow['ImageCourse'];
 ?>
-    <div class="container-fluid px-4">
+    <div class="container-fluid px-5">
         <div class="row my-5">
             <h2>Checkout</h2>
             <div class="col-sm-6">
@@ -125,8 +125,7 @@ include("include/navbar.php");
                 </table>
 
                 <h5 class="mt-4">Payment Method</h5>
-                <label for="fname">Credit Card Number</label>
-                <input type="text" class="form-control mb-3" id="creditcard" name = "creditcard" placeholder="Your credit card number">
+                
 
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="method" id="method1" value = "Credit Card">
@@ -135,12 +134,16 @@ include("include/navbar.php");
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="method" id="method2" value = "Cash" checked>
+                    <input class="form-check-input" type="radio" name="method" id="method2" value = "Cash">
                     <label class="form-check-label" for="method2">
                       Cash
                     </label>
                 </div>
-
+                <br>
+                <div id="payment-details">
+                    <!-- input field will be added dynamically here -->
+                </div>
+                
                 <input type="submit" name="place_order" id="place_order" class="btn btn-training btn-block w-100 mt-3" value="Request training">
                 </form>
             </div>
@@ -154,5 +157,65 @@ include("include/navbar.php");
     <?php
     include("include/footer.php");
     ?>
+
+<script>
+  const paymentDetailsDiv = document.getElementById('payment-details');
+  const creditCardInput = `
+                <div class="row">
+                    <div class="col-8">
+                        <label for="creditcard">Card number</label>
+                        <input type="text" class="form-control mb-3" id="creditcard" name= "creditcard" placeholder="***************">
+                    </div>
+                    <div class="col-4">
+                        <label for="cvv">CVV</label>
+                    <input type="text" class="form-control mb-3" name="cvv" id="cvv" placeholder="***">
+                    </div>
+                    <label for="month">Valid until</label>
+                    <div class="col-6">
+                        <select name="month" id="month" class="form-control">
+                            <option value="january">January</option>
+                            <option value="february">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                            <option value="july">July</option>
+                            <option value="august">August</option>
+                            <option value="september">September</option>
+                            <option value="october">October</option>
+                            <option value="november">November</option>
+                            <option value="december">December</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <select name="year" id="year" class="form-control">
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                        </select>
+                    </div>
+                </div>
+  `;
+  const cashInput = '<label for="cash">Payment Receipt</label><input type="file" class="form-control mb-3" id="cash" name= "cash">';
+
+  const methodRadioButtons = document.getElementsByName('method');
+  for (let i = 0; i < methodRadioButtons.length; i++) {
+    methodRadioButtons[i].addEventListener('change', function() {
+      if (this.value === 'Credit Card') {
+        paymentDetailsDiv.innerHTML = creditCardInput;
+      } else if (this.value === 'Cash') {
+        paymentDetailsDiv.innerHTML = cashInput;
+      }
+    });
+  }
+</script>
 </body>
 </html>
