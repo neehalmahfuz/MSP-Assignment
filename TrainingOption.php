@@ -112,4 +112,20 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     include("include/footer.php");
     ?>
 </body>
+
+<script>
+    document.getElementById('search-button').addEventListener('click', function() {
+        const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
+
+        const trainingOptions = document.querySelectorAll('.col-sm-4');
+        trainingOptions.forEach(function(option) {
+            const title = option.querySelector('.training-option-title').textContent.toLowerCase();
+            if (title.includes(searchInput)) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+</script>
 </html>

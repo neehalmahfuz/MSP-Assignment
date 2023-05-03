@@ -123,7 +123,7 @@ else
                 <img src="res/register.jpg" class="img-fluid">
             </div>
             <div class="col-sm-6">
-                <form name="form" id="register_form" method="post" enctype="multipart/form-data" novalidate="novalidate"  class="p-5">
+                <form name="form" onsubmit="return validateForm()" id="register_form" method="post" enctype="multipart/form-data" novalidate="novalidate"  class="p-5">
                     <h1 class="mb-4" style="color: #454545;">Registration Form</h1>
                     <div class="row mb-3">
                         <label for="firstname" class="col-sm-4 col-form-label">First Name</label>

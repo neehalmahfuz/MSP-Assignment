@@ -40,7 +40,9 @@ function validateForm() {
     if (all_ok){
         storeResgiter(firstname, lastname, birthdate, phone, state, email, password, gender);
 	}
-  
+    else{
+        return false;
+    }
 }
 
 // Validate First Name
