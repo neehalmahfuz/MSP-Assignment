@@ -1,30 +1,30 @@
 <?php
+error_reporting(0);
 session_start();
 
-if(isset($_GET['Id']) && $_GET['Id'] === 'GetLogOut') {
-  session_destroy();
-  header('Location: index.php');
-  exit();
-} else {
-  echo '<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-    <a class="navbar-brand ps-4" href="index.php">
-        <img src="res/logo.png" height="50" class="d-inline-block align-top" alt="logo">
-    </a>
-    <div class="collapse navbar-collapse p-2 pe-4" id="navbar">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="TrainingOption.php">Trainings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contactus.php">Contact Us</a>
-        </li>
-      </ul>';
+  if (isset($_GET['Id']) && $_GET['Id'] === 'GetLogOut') {
+    session_destroy();
+    header('Location: index.php');
+    exit();
+  }
 
-  if($_SESSION['accType'] == 'Admin' && isset($_SESSION['firstname'])) {
-    echo '<ul class="navbar-nav">
+  if (isset($_SESSION["firstname"])) {
+    $username = $_SESSION["firstname"];
+  } else {
+    $username = "";
+  }
+
+  if ($_SESSION['accType'] == 'Admin' && isset($_SESSION['firstname'])) {
+    echo '
+      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <a class="navbar-brand ps-4" href="index.php">
+          <img src="res/logo.png" height="50" class="d-inline-block align-top" alt="logo">
+        </a>
+        <div class="collapse navbar-collapse p-2 pe-4" id="navbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.php">Home</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="AddTrainingOption.php">Add Training</a>
             </li>
@@ -34,18 +34,56 @@ if(isset($_GET['Id']) && $_GET['Id'] === 'GetLogOut') {
             <li class="nav-item">
               <a class="nav-link" href="index.php?Id=GetLogOut">Log Out</a>
             </li>
-          </ul>';
+          </ul>
+          <ul class="nav navbar-nav">
+            <li class="nav-item">
+              <span class="nav-link">'.$username.'</span>
+            </li>
+          </ul>
+        </div>
+      </nav>';
+  } 
+else{
+  echo '
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+      <a class="navbar-brand ps-4" href="index.php">
+        <img src="res/logo.png" height="50" class="d-inline-block align-top" alt="logo">
+      </a>
+      <div class="collapse navbar-collapse p-2 pe-4" id="navbar">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="TrainingOption.php">Trainings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contactus.php">Contact Us</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <span class="nav-link">'.$username.'</span>
+          </li>';
+
+  if (empty($username)) {
+    echo '
+          <li class="nav-item">
+            <a class="nav-link" href="login.php">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.php">Register</a>
+          </li>';
   } else {
-    echo '<ul class="nav navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="register.php">Register</a>
-            </li>
-          </ul>';
+    echo '
+          <li class="nav-item">
+            <a class="nav-link" href="index.php?Id=GetLogOut">Log Out</a>
+          </li>';
   }
-  
-  echo '</div></nav>';
+
+  echo '
+        </ul>
+      </div>
+    </nav>';
 }
 ?>
