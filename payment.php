@@ -93,11 +93,14 @@ include("include/navbar.php");
             <div class="col-sm-6">
 
                 <form name="form" id="form" method="POST" >
-                    <label for="email">Email Address</label>
-                    <input type="email" class="form-control mb-3" id="email" name = "email" placeholder="Your email address">
+                    <label for="venue">Venue</label>
+                    <input type="text" class="form-control mb-3" id="venue" name = "venue" placeholder="Your prefered venue..">
 
-                    <label for="password">password</label>
-                    <input type="password" class="form-control mb-3" id="password" name="password" placeholder="Your user account password">
+                    <label for="date">Date</label>
+                    <input type="date" class="form-control mb-3" id="date" name="date">
+
+                    <label for="pax">Pax</label>
+                    <input type="number" class="form-control mb-3" id="pax" name="pax" placeholder="Amount of people..">
 
             </div>
             <div class="col-sm-6">
