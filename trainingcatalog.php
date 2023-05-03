@@ -16,7 +16,7 @@
 	$username = "root";
 	$password = "";
 	$dbname = "database";
-	$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
 ?>
 <a href="index.php">Home</a>
 <a href="trainingcatalog.php">Training catalog</a>

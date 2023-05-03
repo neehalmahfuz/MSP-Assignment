@@ -44,7 +44,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "database";
-$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 ?>
 
     <div class="container-fluid px-4">
