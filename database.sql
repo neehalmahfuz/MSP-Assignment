@@ -142,6 +142,7 @@ CREATE TABLE `tbltrainingrequest` (
   `CourseName` varchar(40) DEFAULT NULL,
   `PaymentMethod` varchar(20) DEFAULT NULL,
   `CreditCardNum` varchar(20) DEFAULT NULL,
+  `PaymentStatus` varchar(20) DEFAULT NULL,
   `RequestTime` datetime DEFAULT NULL,
   `RequestStatus` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -150,10 +151,10 @@ CREATE TABLE `tbltrainingrequest` (
 -- Dumping data for table `tbltrainingrequest`
 --
 
-INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `RequestTime`, `RequestStatus`) VALUES
-(1, 'sookwangzheng@gmail.com', NULL, 'Cash', NULL, '2023-04-22 09:52:10', 'Pending'),
-(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, '2023-04-22 09:54:54', 'Pending'),
-(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '1234567890', '2023-04-22 15:57:24', 'Pending');
+INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `PaymentStatus`, `RequestTime`, `RequestStatus`) VALUES
+(1, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending','2023-04-22 09:52:10', 'Pending'),
+(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending','2023-04-22 09:54:54', 'Pending'),
+(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '1234567890', 'Pending','2023-04-22 15:57:24', 'Pending');
 
 -- --------------------------------------------------------
 
