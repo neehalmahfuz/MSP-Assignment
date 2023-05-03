@@ -38,13 +38,25 @@
 <body>
 <?php
 error_reporting(0);
+
 include("include/navbar.php");
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "database";
-$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
-	
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+$CheckStaffSQL = "SELECT * FROM user WHERE accType = 'Admin'";
+$StaffResult = mysqli_query($conn,$CheckStaffSQL);
+				
+if(mysqli_num_rows($StaffResult) == 0)
+{
+	$AdminSQL = "INSERT INTO user(firstName,lastName,birthDate,phone,state,email,accType,password,confirmPassword,gender)
+	VALUES ('Andy','soo','2000-10-11','0168586118','Sarawak','sookwangzheng@gmail.com','Admin','andysoo1011','andysoo1011','Male')";
+	$AdminResult = mysqli_query($conn,$AdminSQL);
+}
+
 ?>
  
       
