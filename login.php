@@ -10,23 +10,22 @@
 </head>
 <body>
 <?php
-include("include/navbar.php");
 error_reporting(0);
+include("include/navbar.php");
+
 // Connect to database
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "database";
-$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check if connection was successful
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-session_start();
-
 if(isset($_POST['btnLogin']))
 {
+    session_start();
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
 
@@ -42,6 +41,7 @@ if(isset($_POST['btnLogin']))
         $_SESSION['phone'] = $row['phone'];
         $_SESSION['state'] = $row['state'];
         $_SESSION['email'] = $row['email'];
+        $_SESSION['accType'] = $row['accType'];
         $_SESSION['gender'] = $row['gender'];
         
         header("Location: index.php"); // Redirect to homepage
