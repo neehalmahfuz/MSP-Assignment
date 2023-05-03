@@ -79,7 +79,7 @@ if($_POST['btnRegister'])
         else{
         
             // Insert user data into database
-            $query = "INSERT INTO user(firstName, lastName, birthDate, phone, state, email, password, confirmPassword, gender)
+            $query = "INSERT INTO user(firstName, lastName, birthDate, phone, state, email, accType, password, confirmPassword, gender)
                 VALUES(
                 '".$_POST["firstname"]."',
                 '".$_POST["lastname"]."',
@@ -87,6 +87,7 @@ if($_POST['btnRegister'])
                 '".($_POST["phone"])."',
                 '".($_POST["state"])."',
                 '$email',
+                'Client',
                 '$password',
                 '$confirmPassword',
                 '".($_POST["gender"])."')";
