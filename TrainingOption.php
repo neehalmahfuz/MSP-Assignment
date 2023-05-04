@@ -53,7 +53,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <h2>Training Options</h2>
                 <div class="d-flex">
                     <input type="text" class="form-control" placeholder="Search training option ...">
-                    <button class="btn btn-primary">Search</button>
+                    <button class="btn btn-primary" id="search-button" >Search</button>
                 </div>
             </div>
             
