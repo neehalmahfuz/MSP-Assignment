@@ -30,10 +30,30 @@ if(isset($_POST['btnLogin']))
     $password = trim($_POST["password"]);
 
     // Check if email and password match database
-    $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
+$query = "SELECT * FROM user WHERE email = '$email' AND password = '$password' AND accType = 'Admin'";
+$result = mysqli_query($conn, $query);
+if(mysqli_num_rows($result) > 0){
+    // Login successful for admin
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION['firstname'] = $row['firstName'];
+    $_SESSION['lastname'] = $row['lastName'];
+    $_SESSION['birthdate'] = $row['birthDate'];
+    $_SESSION['phone'] = $row['phone'];
+    $_SESSION['state'] = $row['state'];
+    $_SESSION['email'] = $row['email'];
+    $_SESSION['accType'] = $row['accType'];
+    $_SESSION['gender'] = $row['gender'];
+    
+    header("Location: admin_dashboard.php"); // Redirect to admin page
+    exit();
+    
+}
+else{
+    // Check if login successful for client
+    $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password' AND accType = 'Client'";
     $result = mysqli_query($conn, $query);
     if(mysqli_num_rows($result) > 0){
-        // Login successful
+        // Login successful for client
         $row = mysqli_fetch_assoc($result);
         $_SESSION['firstname'] = $row['firstName'];
         $_SESSION['lastname'] = $row['lastName'];
@@ -52,6 +72,8 @@ if(isset($_POST['btnLogin']))
         echo "<script>alert('Invalid email or password');</script>";
         echo "<script>location='login.php';</script>";
     }
+}
+
 }
 
 

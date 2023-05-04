@@ -25,13 +25,7 @@ session_start();
           <li class="nav-item active">
             <a class="nav-link" href="index.php">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="AddTrainingOption.php">Add Training</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admin.php">Admin Dashboard</a>
-          </li>
-          
+        
         </ul>
         <ul class="nav navbar-nav">
           <li class="nav-item">
@@ -59,15 +53,12 @@ else{
             <a class="nav-link" href="TrainingOption.php">Trainings</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" href="Enquiry.php">Enquiry</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="contactus.php">Contact Us</a>
           </li>
         </ul>
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <span class="nav-link">'.$username.'</span>
+            <a class="nav-link" href="history.php">'.$username.'</a>
           </li>';
 
   if (empty($username)) {
