@@ -79,7 +79,7 @@ if($_POST['btnRegister'])
         else{
         
             // Insert user data into database
-            $query = "INSERT INTO user(firstName, lastName, birthDate, phone, state, email, password, confirmPassword, gender)
+            $query = "INSERT INTO user(firstName, lastName, birthDate, phone, state, email, accType, password, confirmPassword, gender)
                 VALUES(
                 '".$_POST["firstname"]."',
                 '".$_POST["lastname"]."',
@@ -87,6 +87,7 @@ if($_POST['btnRegister'])
                 '".($_POST["phone"])."',
                 '".($_POST["state"])."',
                 '$email',
+                'Client',
                 '$password',
                 '$confirmPassword',
                 '".($_POST["gender"])."')";
@@ -123,7 +124,7 @@ else
                 <img src="res/register.jpg" class="img-fluid">
             </div>
             <div class="col-sm-6">
-                <form name="form" id="register_form" method="post" enctype="multipart/form-data" novalidate="novalidate"  class="p-5">
+                <form name="form" onsubmit="return validateForm()" id="register_form" method="post" enctype="multipart/form-data" novalidate="novalidate"  class="p-5">
                     <h1 class="mb-4" style="color: #454545;">Registration Form</h1>
                     <div class="row mb-3">
                         <label for="firstname" class="col-sm-4 col-form-label">First Name</label>
