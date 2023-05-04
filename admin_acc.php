@@ -27,7 +27,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
         <div class="row mx-5">
             <div class="col-sm-12 d-flex justify-content-between mb-3">
                 <h2>Admin Account</h2>
-            </div>  
+            </div> 
+            
+            <div class="col-sm-12">
+            <a href="insert_admin.php">
+            <input type ="button" class="btn btn-block mt-3" style="background-color: #FF6000; color: #ffffff;" value="Add Admin Account"></a>
+</div>
+            
             <div class="col-sm-12">
                 <table class="table w-100 table-hover text-center">
                     <thead>
@@ -54,14 +60,17 @@ $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
         <td><?php echo $row["email"];?></td>
         <td><?php echo $row["accType"];?></td>
         <!--Delete User-->
-        <td><a href="delete.php?email=<?php echo $row["email"]; ?>">Delete</a></td>
+        <td><a href="delete_admin.php?email=<?php echo $row["email"]; ?>">Delete</a></td>
     </tr>
     <?php $count++;
 } ?>
 
+
+
                         
                     </tbody>
                 </table>
+
             </div>
         </div>  
     </div>
