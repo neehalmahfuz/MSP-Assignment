@@ -52,7 +52,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <div class="col-sm-12 mt-3 mb-2 d-flex justify-content-between">
                 <h2>Training Options</h2>
                 <div class="d-flex">
-                    <input type="text" class="form-control" placeholder="Search training option ...">
+                    <input type="text" class="form-control" id="search-input" placeholder="Search training option ...">
                     <button class="btn btn-primary" id="search-button" >Search</button>
                 </div>
             </div>
