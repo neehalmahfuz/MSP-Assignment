@@ -38,35 +38,50 @@ $servername = "localhost";
 	
 
 <?php
-if($_POST['btnAddAccInfo'])
-	{
-		$CourseImg = $_FILES["CourseImage"]["name"];
-		$TempMovieImg = $_FILES["CourseImage"]["tmp_name"];
-		mkdir("CourseImage");
-		move_uploaded_file($TempMovieImg,"CourseImage/".$CourseImg);
-		
-		$AddCourseInfo = "INSERT INTO tblcourse(CourseName,Description,Duration,ImageCourse,PriceCourse,InstructorName,LocationId,ConpanyStatus)
-		VALUES(
-		'".trim($_POST["txtCourseName"])."',
-		'".trim($_POST["DescriptionTxtArea"])."',
-		'".trim($_POST["textDuration"])."',
-		'$CourseImg',
-		'".(trim($_POST["textPrice"]))."',
-		'Jacky lim',
-		'B001',
-		'Open')";
-		$CourseInfoResult = mysqli_query($conn,$AddCourseInfo);
-		if($CourseInfoResult)
-		{
-			echo "<script>alert('New record created successfully');</script>";
-			echo "<script>location='index.php';</script>";
-		}
-		else
-			echo "<script>alert('Something wrong');</script>";
-		echo "<script>location='index.php';</script>";
-	}
-	else
-	{
+if($_POST['btnAddAccInfo']) {
+    //session storage
+    session_start();
+    
+    $courseName = trim($_POST["txtCourseName"]);
+    
+    $lowerCaseCourseName = strtolower($courseName);
+
+    // Check if the course name already exists
+    $select = "SELECT * FROM tblcourse WHERE LOWER(CourseName) = '$lowerCaseCourseName'";
+    $result = mysqli_query($conn, $select);
+    if(mysqli_num_rows($result) > 0) {
+        echo "<script>alert('Training option already exists!');</script>";
+        echo "<script>location='AddTrainingOption.php';</script>";
+    }
+    else {
+        $CourseImg = $_FILES["CourseImage"]["name"];
+        $TempMovieImg = $_FILES["CourseImage"]["tmp_name"];
+        mkdir("CourseImage");
+        move_uploaded_file($TempMovieImg,"CourseImage/".$CourseImg);
+        
+        $AddCourseInfo = "INSERT INTO tblcourse(CourseName,Description,Duration,ImageCourse,PriceCourse,InstructorName,LocationId,ConpanyStatus)
+        VALUES(
+        '".$courseName."',
+        '".trim($_POST["DescriptionTxtArea"])."',
+        '".trim($_POST["textDuration"])."',
+        '$CourseImg',
+        '".(trim($_POST["textPrice"]))."',
+        'Jacky lim',
+        'B001',
+        'Open')";
+        
+        $CourseInfoResult = mysqli_query($conn,$AddCourseInfo);
+        if($CourseInfoResult) {
+            echo "<script>alert('New record created successfully');</script>";
+            echo "<script>location='index.php';</script>";
+        }
+        else {
+            echo "<script>alert('Something wrong');</script>";
+            echo "<script>location='index.php';</script>";
+        }
+    }
+}
+else {
 
 ?>
     <div class="container d-flex align-items-center h-100">
