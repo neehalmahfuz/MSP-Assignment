@@ -15,16 +15,33 @@ include("include/navbar.php");
 
 ?>
 
-<div>
-<a href="admin_acc.php">Manage Admin Account</a>
-</div>
-
-<div>
-<a href="admin_user.php">Manage User Training</a>
-</div>
-
-<div>
-<a href="admin_training.php">Manage Training Course</a>
+<div class="container-fluid mt-5 pt-5 pb-5">
+    <div class="row">
+        <div class="col-sm-4 mt-3">
+            <div class="shadow p-3 bg-white rounded">
+                <img src="res/banner1.png" class="w-100" height=250>
+                    <div class="mt-2 text-center">
+                        <h4 class="training-option-title"><a href="admin_acc.php" class="text-decoration-none">Manage Admin Account</a></h4>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-4 mt-3">
+            <div class="shadow p-3 bg-white rounded">
+                <img src="res/banner2.png" class="w-100" height=250>
+                    <div class="mt-2 text-center">
+                        <h4 class="training-option-title"><a href="admin_user.php" class="text-decoration-none">Manage User Training</a></h4>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-4 mt-3">
+            <div class="shadow p-3 bg-white rounded">
+                <img src="res/banner1.png" class="w-100" height=250>
+                    <div class="mt-2 text-center">
+                        <h4 class="training-option-title"><a href="admin_training.php" class="text-decoration-none">Manage Training Course</a></h4>
+                    </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php
