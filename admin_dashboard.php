@@ -15,7 +15,7 @@ include("include/navbar.php");
 
 ?>
 
-<div class="container-fluid mt-5 pt-5 pb-5">
+<div class="container-fluid pt-5 pb-5">
     <div class="row">
         <div class="col-sm-4 mt-3">
             <div class="shadow p-3 bg-white rounded">
