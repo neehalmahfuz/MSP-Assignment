@@ -68,7 +68,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
         <td><?php echo $row["email"];?></td>
         <td><?php echo $row["accType"];?></td>
         <!--Delete User-->
-        <td><a href="delete_admin.php?email=<?php echo $row["email"]; ?>">Delete</a></td>
+        <td><a onclick="return confirm('Are you sure you want to delete this admin account?')" href="delete_admin.php?email=<?php echo $row["email"]; ?>">Delete</a></td>
     </tr>
     <?php $count++;
 } ?>
