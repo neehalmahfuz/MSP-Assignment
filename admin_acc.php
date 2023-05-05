@@ -7,6 +7,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Admin Account</title>
 </head>
+<style>
+    .btn-add {
+        background-color: #FF6000; 
+        color: #ffffff;
+    }
+
+    .btn-add:hover {
+        background-color: #808080;
+        color: #ffffff;
+    }
+    
+</style>
 <body>
 <?php
 error_reporting(0);
@@ -27,12 +39,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
         <div class="row mx-5">
             <div class="col-sm-12 d-flex justify-content-between mb-3">
                 <h2>Admin Account</h2>
+                <a href="insert_admin.php"><input type ="button" class="btn btn-block mt-3 btn-add" value="Add Admin Account"></a>
             </div> 
-            
-            <div class="col-sm-12">
-            <a href="insert_admin.php">
-            <input type ="button" class="btn btn-block mt-3" style="background-color: #FF6000; color: #ffffff;" value="Add Admin Account"></a>
-</div>
             
             <div class="col-sm-12">
                 <table class="table w-100 table-hover text-center">
