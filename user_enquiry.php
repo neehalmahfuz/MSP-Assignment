@@ -36,7 +36,7 @@ include("include/navbar.php");
   <div class="col-sm-8">
     <h2 class="mb-3">Enquiry</h2>
     <div class="card shadow-0 bg-light">
-    <div class=" pt-4 px-4 d-flex justify-content-between">
+    <div class=" py-4 px-4 d-flex justify-content-between">
         <input type="text" class="form-control" placeholder="Type your enquiry..." />
         <button class="btn btn-send px-4 ms-2">send</button>
     </div>  
