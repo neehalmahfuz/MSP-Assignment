@@ -114,8 +114,8 @@ else if($_POST['btnAddTrainingInfo']) {
         }
     }
 }
-else if($_GET['Id'] == 'AddTraining' || $_POST['btnSelect']){
-    $TrainingInfo = "SELECT * FROM tblcourse WHERE CourseId = '".$_POST['SelectCourseName']."'";
+else if($_GET['Id'] == 'AddTraining' || $_POST['btnSelect'] || $_GET['Id'] == 'EditTraining'){
+    $TrainingInfo = "SELECT * FROM tblcourse WHERE CourseId = '".$_POST['SelectCourseName']."' OR CourseName = '".$_GET['EditId']."'";
     $TrainingInfoResult = mysqli_query($conn,$TrainingInfo);
     if(mysqli_num_rows($TrainingInfoResult) > 0)
     {
@@ -132,7 +132,7 @@ else if($_GET['Id'] == 'AddTraining' || $_POST['btnSelect']){
                     <input type="hidden" id="CourseId" name="CourseId" value="<?php echo $SelectTrainingRow['CourseId']; ?>">
                     <h1 class="mb-4" style="color: #454545;">
                     <?php 
-                    if($_POST['btnSelect'])
+                    if($_POST['btnSelect'] || $_GET['Id'] == 'EditTraining')
                         echo "Edit Training Option Form";
                     else
                         echo "Add Training Option Form"
