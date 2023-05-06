@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+session_start();
 ini_set("date.timezone","Asia/Kuching");
 ?>
 <!DOCTYPE html>
@@ -43,21 +44,19 @@ include("include/navbar.php");
 	if($_POST['place_order']){
 		$datetime = new DateTime();
 		$datetime_str = $datetime->format('Y-m-d H:i:s');
-
-        $CheckEmail = "SELECT * FROM user WHERE email = '".$_POST['email']."' AND password = '".$_POST['password']."' ";
-        $CheckEmailRs = mysqli_query($conn,$CheckEmail);
-		if(mysqli_num_rows($CheckEmailRs) > 0){
+        if($_SESSION['email'] == true){
             $SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
             $SelectOptionRs = mysqli_query($conn,$SelectOption);
             if(mysqli_num_rows($SelectOptionRs) > 0)
             {
                 $Selectrow = mysqli_fetch_array($SelectOptionRs);
-                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,PaymentMethod,CreditCardNum,RequestTime,RequestStatus)
+                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
                 VALUES(
-                '".trim($_POST["email"])."',
+                '".trim($_SESSION["email"])."',
                 '".trim($Selectrow['CourseName'])."',
                 '".trim($_POST["method"])."',
                 '".trim($_POST['creditcard'])."',
+                'Pending',
                 '".$datetime_str."',
                 'Pending')";
                 $RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
@@ -71,11 +70,11 @@ include("include/navbar.php");
                 echo "<script>location='index.php';</script>";
             }
         }
-        else{
-            echo "<script>alert('Email or Password is incorrect');</script>";
-                echo "<script>location='index.php';</script>";
-        }
-		
+         else{
+            echo "<script>alert('Please login first');</script>";
+            echo "<script>location='login.php';</script>";
+         }   
+       
 	}
 	else if($_GET['Id'] == "GetOption" && $_GET['OptionId'] != "")
 	{
