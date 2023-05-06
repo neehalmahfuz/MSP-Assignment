@@ -13,7 +13,20 @@
 error_reporting(0);
 
 include("include/navbar.php");
+// Connect to database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "database";
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+// Check if connection was successful
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
 ?>
+
+
 
     <div class="container-fluid pt-5 pb-5">
         <div class="row mx-5">
@@ -38,33 +51,27 @@ include("include/navbar.php");
                             <th>Date</th>
                             <th>Payment method</th>
                             <th>Status</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><img src="res/example.jpg" class="img-fluid" width="100"></td>
-                            <td>Training title</td>
-                            <td>120 RM</td>
-                            <td>12-01-2023</td>
-                            <td>Cash</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr>
-                            <td><img src="res/example.jpg" class="img-fluid" width="100"></td>
-                            <td>Training title</td>
-                            <td>120 RM</td>
-                            <td>12-01-2023</td>
-                            <td>Cash</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr>
-                            <td><img src="res/example.jpg" class="img-fluid" width="100"></td>
-                            <td>Training title</td>
-                            <td>120 RM</td>
-                            <td>12-01-2023</td>
-                            <td>Cash</td>
-                            <td>Pending</td>
-                        </tr>
+                    <?php
+                    $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}'";
+                    $result = mysqli_query($conn, $sel_query);
+                        while ($row = mysqli_fetch_assoc($result)) { ?>
+                            <tr>
+                                
+                            <td><?php $listImg = $row['ImageCourse'];
+                            echo $Img = '<img src="CourseImage/'.$listImg.'" class="w-100" height=100/>';?></td>
+                                <td><?php echo $row["CourseName"];?></td>
+                                <td><?php echo $row["PriceCourse"];?></td>
+                                <td><?php echo $row["RequestTime"];?></td>
+                                <td><?php echo $row["PaymentMethod"];?></td>
+                                <td><?php echo $row["RequestStatus"];?></td>
+                                <!--Delete User-->
+                                <td><a onclick="return confirm('Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.')" href="cancel_request.php?email=<?php echo $row["email"]; ?>">Delete</a></td>
+                            </tr>
+                            <?php } ?>
                     </tbody>
                 </table>
             </div>
