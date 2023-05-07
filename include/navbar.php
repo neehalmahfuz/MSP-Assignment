@@ -62,6 +62,9 @@ else{
             <a class="nav-link" href="TrainingOption.php">Trainings</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="notification.php">Notifications</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="contactus.php">Contact Us</a>
           </li>
         </ul>
