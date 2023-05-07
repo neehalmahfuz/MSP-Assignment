@@ -70,7 +70,7 @@ else{
         </ul>
         <ul class="nav navbar-nav">
           <li class="nav-item">
-            <span class="nav-link">'.$username.'</span>
+          <a class="nav-link" href="history.php">'.$username.'</a>
           </li>';
 
   if (empty($username)) {

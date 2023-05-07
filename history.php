@@ -32,14 +32,17 @@ if (!$conn) {
         <div class="row mx-5">
             <div class="col-sm-12 d-flex justify-content-between mb-3">
                 <h2>History</h2>
-                    <select name="filter" id="filter" class="form-control w-25 mb-4">
-                        <option value="all">All</option>
-                        <option value="pending">Pending</option>
-                        <option value="completed">Completed</option>
-                        <option value="ongoing">Ongoing</option>
-                        <option value="cancelled">Cancelled</option>
-                        <option value="confirmed">Confirmed</option>
-                    </select>
+                
+                <form method="POST" action="">
+    <select name="filter" id="filter" onchange="this.form.submit()">
+        <option value="all" <?php if(isset($_POST['filter']) && $_POST['filter'] == 'all') { echo 'selected'; } ?>>All</option>
+        <option value="pending" <?php if(isset($_POST['filter']) && $_POST['filter'] == 'pending') { echo 'selected'; } ?>>Pending</option>
+        <option value="completed" <?php if(isset($_POST['filter']) && $_POST['filter'] == 'completed') { echo 'selected'; } ?>>Completed</option>
+        <option value="ongoing" <?php if(isset($_POST['filter']) && $_POST['filter'] == 'ongoing') { echo 'selected'; } ?>>Ongoing</option>
+        <option value="cancelled" <?php if(isset($_POST['filter']) && $_POST['filter'] == 'cancelled') { echo 'selected'; } ?>>Cancelled</option>
+        <option value="confirmed" <?php if(isset($_POST['filter']) && $_POST['filter'] == 'confirmed') { echo 'selected'; } ?>>Confirmed</option>
+    </select>
+</form>
             </div>  
             <div class="col-sm-12">
                 <table class="table w-100 table-hover text-center">
@@ -56,7 +59,12 @@ if (!$conn) {
                     </thead>
                     <tbody>
                     <?php
-                    $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}'";
+                   $filter = $_POST['filter'];
+                   if($filter == "all") {
+                     $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}'";
+                   } else {
+                     $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}' AND tbltrainingrequest.RequestStatus = '$filter'";
+                   }
                     $result = mysqli_query($conn, $sel_query);
                         while ($row = mysqli_fetch_assoc($result)) { ?>
                             <tr>
