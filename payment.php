@@ -30,6 +30,29 @@ ini_set("date.timezone","Asia/Kuching");
 
 </style>
 <body>
+  <script>
+      function validateForm() {
+          var venue = document.forms["form"]["venue"].value;
+          var date = document.forms["form"]["date"].value;
+          var pax = document.forms["form"]["pax"].value;
+          var method = document.forms["form"]["method"].value;
+          var creditcard = document.forms["form"]["creditcard"].value;
+
+          if (venue == "" || date == "" || pax == "" || method == "" || creditcard == "") {
+              alert("Please fill in all required fields.");
+              return false;
+          }
+
+          var regex = /^[0-9]{16}$/;
+          if (!regex.test(creditcard)) {
+              alert("Please enter a valid credit card number. It must be 16 digits");
+              return false;
+          }
+
+          return true;
+      }
+  </script>
+
 <?php
 
 include("include/navbar.php");
@@ -95,7 +118,7 @@ include("include/navbar.php");
             <h2>Checkout</h2>
             <div class="col-sm-6">
 
-                <form name="form" id="form" method="POST" >
+                <form name="form" id="form" method="POST" onsubmit="return validateForm()">
                     <label for="venue">Venue</label>
                     <select name = "venue" id = "venue" class="form-control mb-3">
                       <option value = "Sarawak Plaza">Sarawak Plaza</option>
