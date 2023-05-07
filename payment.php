@@ -24,6 +24,9 @@ ini_set("date.timezone","Asia/Kuching");
         background-color: #FFFFFF;
         color: #FF6000;
     }
+
+
+
 </style>
 <body>
 <?php
@@ -73,8 +76,8 @@ include("include/navbar.php");
          else{
             echo "<script>alert('Please login first');</script>";
             echo "<script>location='login.php';</script>";
-         }   
-       
+         }
+
 	}
 	else if($_GET['Id'] == "GetOption" && $_GET['OptionId'] != "")
 	{
@@ -93,13 +96,19 @@ include("include/navbar.php");
 
                 <form name="form" id="form" method="POST" >
                     <label for="venue">Venue</label>
-                    <input type="text" class="form-control mb-3" id="venue" name = "venue" placeholder="Your prefered venue..">
+                    <select name = "venue" id = "venue" class="form-control mb-3">
+                      <option value = "Sarawak Plaza">Sarawak Plaza</option>
+                      <option value = "Balairong Seri Banquet Hall">Balairong Seri Banquet Hall</option>
+                      <option value = "Tunku Abdul Rahman Putra Hall">Tunku Abdul Rahman Putra Hall</option>
+                      <option value = "11Ridgeway Kuching">11Ridgeway Kuching</option>
+                      <option value = "Cityone Megamall Event Hall">Cityone Megamall Event Hall</option>
+                    </select>
 
                     <label for="date">Date</label>
                     <input type="date" class="form-control mb-3" id="date" name="date">
 
                     <label for="pax">Pax</label>
-                    <input type="number" class="form-control mb-3" id="pax" name="pax" placeholder="Amount of people..">
+                    <input type="number" class="form-control mb-3" id="pax" name="pax" placeholder="Amount of people.." min="1" max="6" >
 
             </div>
             <div class="col-sm-6">
@@ -127,7 +136,7 @@ include("include/navbar.php");
                 </table>
 
                 <h5 class="mt-4">Payment Method</h5>
-                
+
 
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="method" id="method1" value = "Credit Card">
@@ -145,7 +154,7 @@ include("include/navbar.php");
                 <div id="payment-details">
                     <!-- input field will be added dynamically here -->
                 </div>
-                
+
                 <input type="submit" name="place_order" id="place_order" class="btn btn-training btn-block w-100 mt-3" value="Request training">
                 </form>
             </div>
