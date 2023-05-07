@@ -31,26 +31,47 @@ ini_set("date.timezone","Asia/Kuching");
 </style>
 <body>
   <script>
-      function validateForm() {
-          var venue = document.forms["form"]["venue"].value;
-          var date = document.forms["form"]["date"].value;
-          var pax = document.forms["form"]["pax"].value;
-          var method = document.forms["form"]["method"].value;
-          var creditcard = document.forms["form"]["creditcard"].value;
+    function validateForm() {
+      var venue = document.forms["form"]["venue"].value;
+      var date = document.forms["form"]["date"].value;
+      var pax = document.forms["form"]["pax"].value;
+      var method = document.forms["form"]["method"].value;
+      var creditcard = document.forms["form"]["creditcard"].value;
 
-          if (venue == "" || date == "" || pax == "" || method == "" || creditcard == "") {
-              alert("Please fill in all required fields.");
-              return false;
-          }
-
-          var regex = /^[0-9]{16}$/;
-          if (!regex.test(creditcard)) {
-              alert("Please enter a valid credit card number. It must be 16 digits");
-              return false;
-          }
-
-          return true;
+      if (venue == "" || date == "" || pax == "" || method == "" || creditcard == "") {
+        alert("Please fill in all required fields.");
+        return false;
       }
+
+      var regex = /^[0-9]{16}$/;
+      if (!regex.test(creditcard)) {
+        alert("Please enter a valid credit card number. It must be 16 digits");
+        return false;
+      }
+
+      var maxPax = 6;
+      if (pax > maxPax) {
+        alert("Maximum number of pax is " + maxPax);
+        return false;
+      }
+
+      // Validate date format
+      var dateFormat = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+      if (!date.match(dateFormat)) {
+        alert("Please enter a valid date in the format yyyy-mm-dd.");
+        return false;
+      }
+
+      // Check if date is in the past
+      var currentDate = new Date();
+      var selectedDate = new Date(date);
+      if (selectedDate < currentDate) {
+        alert("Please select a future date.");
+        return false;
+      }
+
+      return true;
+    }
   </script>
 
 <?php
