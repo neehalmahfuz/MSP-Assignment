@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2023 at 02:49 PM
+-- Generation Time: May 08, 2023 at 04:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -131,25 +131,31 @@ CREATE TABLE `tbltrainingrequest` (
   `RequestStatus` varchar(20) DEFAULT NULL,
   `Venue` varchar(20) NOT NULL,
   `Date` date DEFAULT NULL,
-  `Pax` int(11) NOT NULL
+  `Pax` int(11) NOT NULL,
+  `CVV` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbltrainingrequest`
 --
 
-INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `PaymentStatus`, `RequestTime`, `RequestStatus`, `Venue`, `Date`, `Pax`) VALUES
-(1, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending', '2023-04-22 09:52:10', 'Pending', '', NULL, 0),
-(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending', '2023-04-22 09:54:54', 'Pending', '', NULL, 0),
-(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '1234567890', 'Pending', '2023-04-22 15:57:24', 'Pending', '', NULL, 0),
-(4, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 19:46:27', 'Pending', '', NULL, 0),
-(5, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 19:53:21', 'Pending', '', NULL, 0),
-(6, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 19:58:58', 'Pending', '', NULL, 0),
-(7, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:12:35', 'Pending', 'Tunku Abdul Rahman P', NULL, 0),
-(8, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:25:22', 'Pending', 'Sarawak Plaza', '2023-05-11', 0),
-(9, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 20:31:09', 'Pending', 'Balairong Seri Banqu', '0000-00-00', 2023),
-(10, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:36:55', 'Pending', 'Sarawak Plaza', '2023-05-12', 0),
-(11, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:49:08', 'Pending', 'Sarawak Plaza', '2023-05-10', 1);
+INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `PaymentStatus`, `RequestTime`, `RequestStatus`, `Venue`, `Date`, `Pax`, `CVV`) VALUES
+(1, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending', '2023-04-22 09:52:10', 'Pending', '', NULL, 0, 0),
+(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending', '2023-04-22 09:54:54', 'Pending', '', NULL, 0, 0),
+(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '1234567890', 'Pending', '2023-04-22 15:57:24', 'Pending', '', NULL, 0, 0),
+(4, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 19:46:27', 'Pending', '', NULL, 0, 0),
+(5, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 19:53:21', 'Pending', '', NULL, 0, 0),
+(6, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 19:58:58', 'Pending', '', NULL, 0, 0),
+(7, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:12:35', 'Pending', 'Tunku Abdul Rahman P', NULL, 0, 0),
+(8, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:25:22', 'Pending', 'Sarawak Plaza', '2023-05-11', 0, 0),
+(9, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 20:31:09', 'Pending', 'Balairong Seri Banqu', '0000-00-00', 2023, 0),
+(10, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:36:55', 'Pending', 'Sarawak Plaza', '2023-05-12', 0, 0),
+(11, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:49:08', 'Pending', 'Sarawak Plaza', '2023-05-10', 1, 0),
+(12, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:52:36', 'Pending', 'Sarawak Plaza', '2023-05-20', 1, 0),
+(13, 'chai@gmail.com', 'Technical and software development skill', '', '1', 'Pending', '2023-05-08 21:11:34', 'Pending', 'Sarawak Plaza', '2023-05-18', 1, 0),
+(14, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 21:13:22', 'Pending', 'Balairong Seri Banqu', '2023-05-13', 1, 0),
+(15, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 21:17:05', 'Pending', 'Tunku Abdul Rahman P', '2023-05-11', 2, 0),
+(16, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 22:05:38', 'Pending', 'Sarawak Plaza', '2023-05-11', 1, 123);
 
 -- --------------------------------------------------------
 
@@ -361,7 +367,7 @@ ALTER TABLE `tblschedule`
 -- AUTO_INCREMENT for table `tbltrainingrequest`
 --
 ALTER TABLE `tbltrainingrequest`
-  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `trainings`
