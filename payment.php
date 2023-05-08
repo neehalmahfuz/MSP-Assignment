@@ -139,9 +139,6 @@ include("include/navbar.php");
 			while($Selectrow = mysqli_fetch_array($SelectOptionRs))
 			{
 				$SelectImg = $Selectrow['ImageCourse'];
-      }
-		}
-	}
 ?>
     <div class="container-fluid px-5">
         <div class="row my-5">
@@ -255,7 +252,12 @@ include("include/navbar.php");
             </div>
         </div>
     </div>
-  <?php
+<?php
+			}
+		}
+	}
+?>
+    <?php
     include("include/footer.php");
     ?>
 </body>
