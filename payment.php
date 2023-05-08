@@ -96,42 +96,38 @@ include("include/navbar.php");
     }
 
     if($_POST['place_order']){
-        $datetime = new DateTime();
-        $datetime_str = $datetime->format('Y-m-d H:i:s');
-        if($_SESSION['email'] == true){
-            $SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
-            $SelectOptionRs = mysqli_query($conn,$SelectOption);
-            if(mysqli_num_rows($SelectOptionRs) > 0)
+    $datetime = new DateTime();
+    $datetime_str = $datetime->format('Y-m-d H:i:s');
+    if($_SESSION['email'] == true){
+        $SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
+        $SelectOptionRs = mysqli_query($conn,$SelectOption);
+        if(mysqli_num_rows($SelectOptionRs) > 0)
+        {
+            $Selectrow = mysqli_fetch_array($SelectOptionRs);
+            $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,Pax,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
+            VALUES(
+            '".trim($_SESSION["email"])."',
+            '".trim($Selectrow['CourseName'])."',
+            '".trim($_POST["venue"])."',
+            '".trim($_POST["date"])."',
+            '".trim($_POST["pax"])."',
+            '".trim($_POST["method"])."',
+            '".trim($_POST['creditcard'])."',
+            'Pending',
+            '".$datetime_str."',
+            'Pending')";
+            $RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
+            if($RequestInfoResult)
             {
-                $Selectrow = mysqli_fetch_array($SelectOptionRs);
-                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
-                VALUES(
-                '".trim($_SESSION["email"])."',
-                '".trim($Selectrow['CourseName'])."',
-                '".trim($_POST["venue"])."',
-                '".trim($_POST["date"])."',
-                '".trim($_POST["method"])."',
-                '".trim($_POST['creditcard'])."',
-                'Pending',
-                '".$datetime_str."',
-                'Pending')";
-                $RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
-                if($RequestInfoResult)
-                {
-                    echo "<script>alert('New record created successfully');</script>";
-                    echo "<script>location='index.php';</script>";
-                }
-                else
-                    echo "<script>alert('Something wrong');</script>";
+                echo "<script>alert('New record created successfully');</script>";
                 echo "<script>location='index.php';</script>";
             }
+            else
+                echo "<script>alert('Something wrong');</script>";
+            echo "<script>location='index.php';</script>";
         }
-         else{
-            echo "<script>alert('Please login first');</script>";
-            echo "<script>location='login.php';</script>";
-         }
-
     }
+}
 
 	else if($_GET['Id'] == "GetOption" && $_GET['OptionId'] != "")
 	{

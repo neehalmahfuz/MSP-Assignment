@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2023 at 04:16 PM
+-- Generation Time: May 08, 2023 at 02:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -30,22 +30,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `custom_requests` (
   `id` int(11) NOT NULL,
   `request_text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `paymentdetails`
---
-
-CREATE TABLE `paymentdetails` (
-  `customerid` int(11) NOT NULL,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
-  `country` enum('Malaysia','Indonesia','Japan') NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `creditcard` bigint(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -144,17 +128,28 @@ CREATE TABLE `tbltrainingrequest` (
   `CreditCardNum` varchar(20) DEFAULT NULL,
   `PaymentStatus` varchar(20) DEFAULT NULL,
   `RequestTime` datetime DEFAULT NULL,
-  `RequestStatus` varchar(20) DEFAULT NULL
+  `RequestStatus` varchar(20) DEFAULT NULL,
+  `Venue` varchar(20) NOT NULL,
+  `Date` date DEFAULT NULL,
+  `Pax` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbltrainingrequest`
 --
 
-INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `PaymentStatus`, `RequestTime`, `RequestStatus`) VALUES
-(1, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending','2023-04-22 09:52:10', 'Pending'),
-(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending','2023-04-22 09:54:54', 'Pending'),
-(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '1234567890', 'Pending','2023-04-22 15:57:24', 'Pending');
+INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `PaymentStatus`, `RequestTime`, `RequestStatus`, `Venue`, `Date`, `Pax`) VALUES
+(1, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending', '2023-04-22 09:52:10', 'Pending', '', NULL, 0),
+(2, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Cash', NULL, 'Pending', '2023-04-22 09:54:54', 'Pending', '', NULL, 0),
+(3, 'sookwangzheng@gmail.com', 'Sales and Marketing Skills', 'Credit Card', '1234567890', 'Pending', '2023-04-22 15:57:24', 'Pending', '', NULL, 0),
+(4, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 19:46:27', 'Pending', '', NULL, 0),
+(5, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 19:53:21', 'Pending', '', NULL, 0),
+(6, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 19:58:58', 'Pending', '', NULL, 0),
+(7, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:12:35', 'Pending', 'Tunku Abdul Rahman P', NULL, 0),
+(8, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:25:22', 'Pending', 'Sarawak Plaza', '2023-05-11', 0),
+(9, 'chai@gmail.com', 'Leadership and Management Skills', '', '1234567891234567', 'Pending', '2023-05-08 20:31:09', 'Pending', 'Balairong Seri Banqu', '0000-00-00', 2023),
+(10, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:36:55', 'Pending', 'Sarawak Plaza', '2023-05-12', 0),
+(11, 'chai@gmail.com', 'Technical and software development skill', '', '1234567891234567', 'Pending', '2023-05-08 20:49:08', 'Pending', 'Sarawak Plaza', '2023-05-10', 1);
 
 -- --------------------------------------------------------
 
@@ -252,12 +247,6 @@ ALTER TABLE `custom_requests`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `paymentdetails`
---
-ALTER TABLE `paymentdetails`
-  ADD PRIMARY KEY (`customerid`);
-
---
 -- Indexes for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
@@ -339,12 +328,6 @@ ALTER TABLE `custom_requests`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `paymentdetails`
---
-ALTER TABLE `paymentdetails`
-  MODIFY `customerid` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
@@ -378,7 +361,7 @@ ALTER TABLE `tblschedule`
 -- AUTO_INCREMENT for table `tbltrainingrequest`
 --
 ALTER TABLE `tbltrainingrequest`
-  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `trainings`
