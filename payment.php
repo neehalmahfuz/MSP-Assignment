@@ -104,11 +104,12 @@ include("include/navbar.php");
             if(mysqli_num_rows($SelectOptionRs) > 0)
             {
                 $Selectrow = mysqli_fetch_array($SelectOptionRs);
-                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
+                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
                 VALUES(
                 '".trim($_SESSION["email"])."',
                 '".trim($Selectrow['CourseName'])."',
                 '".trim($_POST["venue"])."',
+                '".trim($_POST["date"])."',
                 '".trim($_POST["method"])."',
                 '".trim($_POST['creditcard'])."',
                 'Pending',
