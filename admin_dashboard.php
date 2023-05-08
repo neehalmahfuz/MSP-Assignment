@@ -29,7 +29,7 @@ include("include/navbar.php");
             <div class="shadow p-3 bg-white rounded">
                 <img src="res/banner2.png" class="w-100" height=250>
                     <div class="mt-2 text-center">
-                        <h4 class="training-option-title"><a href="admin_user.php" class="text-decoration-none">Manage User Training</a></h4>
+                        <h4 class="training-option-title"><a href="ManageTrainingRequest.php" class="text-decoration-none">Manage User Training</a></h4>
                     </div>
             </div>
         </div>
