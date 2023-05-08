@@ -95,19 +95,20 @@ include("include/navbar.php");
         die("Connection failed: " . mysqli_connect_error());
     }
 
-	if($_POST['place_order']){
-		$datetime = new DateTime();
-		$datetime_str = $datetime->format('Y-m-d H:i:s');
+    if($_POST['place_order']){
+        $datetime = new DateTime();
+        $datetime_str = $datetime->format('Y-m-d H:i:s');
         if($_SESSION['email'] == true){
             $SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
             $SelectOptionRs = mysqli_query($conn,$SelectOption);
             if(mysqli_num_rows($SelectOptionRs) > 0)
             {
                 $Selectrow = mysqli_fetch_array($SelectOptionRs);
-                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
+                $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
                 VALUES(
                 '".trim($_SESSION["email"])."',
                 '".trim($Selectrow['CourseName'])."',
+                '".trim($_POST["venue"])."',
                 '".trim($_POST["method"])."',
                 '".trim($_POST['creditcard'])."',
                 'Pending',
@@ -129,7 +130,8 @@ include("include/navbar.php");
             echo "<script>location='login.php';</script>";
          }
 
-	}
+    }
+
 	else if($_GET['Id'] == "GetOption" && $_GET['OptionId'] != "")
 	{
 		$SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
