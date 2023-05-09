@@ -68,6 +68,7 @@ else{
                         <tr>
                             <th>Image</th>
                             <th>Training title</th>
+                            <th>Pax</th>
                             <th>Price</th>
                             <th>Payment method</th>
                             <th>Venue</th>
@@ -91,6 +92,7 @@ else{
                             <td><?php $listImg = $row['ImageCourse'];
                             echo $Img = '<img src="CourseImage/'.$listImg.'" class="w-100" height=100/>';?></td>
                                 <td><?php echo $row["CourseName"];?></td>
+                                <td><?php echo $row["Pax"];?></td>
                                 <td><?php echo $row["PriceCourse"];?></td>
                                 <td><?php echo $row["PaymentMethod"];?></td>
                                 <td><?php echo $row["Venue"];?></td>
