@@ -89,7 +89,7 @@ include("include/navbar.php");
     $username = "root";
     $password = "";
     $dbname = "database";
-    $conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
     // Check if connection was successful
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
@@ -103,6 +103,12 @@ include("include/navbar.php");
         $SelectOptionRs = mysqli_query($conn,$SelectOption);
         if(mysqli_num_rows($SelectOptionRs) > 0)
         {
+            if($_POST['creditcard'] == ""){
+                $getVALUE = " Card";
+            }
+            else{
+                $getVALUE = " Creadit Card";
+            }
             $Selectrow = mysqli_fetch_array($SelectOptionRs);
             $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,Pax,CVV,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
             VALUES(
@@ -112,7 +118,7 @@ include("include/navbar.php");
             '".trim($_POST["date"])."',
             '".trim($_POST["pax"])."',
             '".trim($_POST["cvv"])."',
-            '".trim($_POST["method"])."',
+            '".trim($getVALUE)."',
             '".trim($_POST['creditcard'])."',
             'Pending',
             '".$datetime_str."',
@@ -199,11 +205,11 @@ include("include/navbar.php");
                         <div class="row mt-3">
                             <div class="col-8">
                                 <label for="creditcard">Card number</label>
-                                <input type="text" class="form-control mb-3" id="creditcard" name="creditcard" placeholder="***************" maxlength="16">
+                                <input type="text" class="form-control mb-3" id="creditcard" name="creditcard" placeholder="***************">
                             </div>
                             <div class="col-4">
                                 <label for="cvv">CVV</label>
-                                <input type="text" class="form-control mb-3" name="cvv" id="cvv" maxlength="3" placeholder="***">
+                                <input type="text" class="form-control mb-3" name="cvv" id="cvv" placeholder="***">
                             </div>
                             <label for="month">Valid until</label>
                             <div class="col-6">
