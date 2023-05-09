@@ -79,7 +79,7 @@ else{
                     </thead>
                     <tbody>
                     <?php
-                   $filter = $_POST['filter'];
+                   $filter = isset($_POST['filter']) ? $_POST['filter'] : 'all';
                    if($filter == "all") {
                      $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}'";
                    } else {
