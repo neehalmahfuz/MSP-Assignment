@@ -196,7 +196,7 @@ include("include/navbar.php");
 
                 <div class="tab-content">
                     <div id="credit" class="tab-pane fade show active">
-                        <div class="row mt-3">
+                    <div class="row mt-3">
                             <div class="col-8">
                                 <label for="creditcard">Card number</label>
                                 <input type="text" class="form-control mb-3" id="creditcard" name="creditcard" placeholder="***************" maxlength="16">

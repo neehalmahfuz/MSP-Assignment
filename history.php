@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +23,25 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+if($_GET['Id'] == "GetRequest"){
+
+    
+    $UpdateRequest = "UPDATE tbltrainingrequest SET
+        RequestStatus = 'Cancelled'
+		WHERE RequestId  = '".$_GET['RequestId']."' ";
+		$UpdateResult = mysqli_query($conn,$UpdateRequest);
+		if($UpdateResult)
+		{
+			echo "<script>alert('Save changes');</script>";
+			echo "<script>location='history.php';</script>";
+		}
+        else{
+            echo "<script>alert('something wrong');</script>";
+			echo "<script>location='history.php';</script>";
+        }
+}
+else{
 ?>
 
 
@@ -77,14 +95,18 @@ if (!$conn) {
                                 <td><?php echo $row["PaymentMethod"];?></td>
                                 <td><?php echo $row["RequestStatus"];?></td>
                                 <!--Delete User-->
-                                <td><a onclick="return confirm('Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.')" href="cancel_request.php?email=<?php echo $row["email"]; ?>">Delete</a></td>
+                                <td><a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>Delete</a></td>
+
                             </tr>
                             <?php } ?>
                     </tbody>
                 </table>
             </div>
-        </div>  
+        </div>   
     </div>
+    <?php
+}
+?>
 
     <?php
     include("include/footer.php");

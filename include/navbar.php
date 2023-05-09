@@ -25,19 +25,11 @@ session_start();
           <li class="nav-item active">
             <a class="nav-link" href="index.php">Home</a>
           </li>
+      
           <li class="nav-item">
-            <a class="nav-link" href="enquiry.php">Enquiries</a>
+            <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="AddTrainingOption.php?Id=AddTraining">Add Training</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="AddTrainingOption.php?Id=GetEditTrainingForm">Edit Training</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admin.php">Admin Dashboard</a>
-          </li>
-
+          
         </ul>
         <ul class="nav navbar-nav">
           <li class="nav-item">
@@ -49,7 +41,7 @@ session_start();
         </ul>
       </div>
     </nav>';
-  }
+  } 
 else{
   echo '
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
@@ -66,9 +58,6 @@ else{
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notification.php">Notifications</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="enquiry.php">Enquiry</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contactus.php">Contact Us</a>
