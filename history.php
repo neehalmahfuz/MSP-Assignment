@@ -86,7 +86,13 @@ else{
                      $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}' AND tbltrainingrequest.RequestStatus = '$filter'";
                    }
                     $result = mysqli_query($conn, $sel_query);
-                        while ($row = mysqli_fetch_assoc($result)) { ?>
+                        while ($row = mysqli_fetch_assoc($result)) 
+                        {
+                            $now = time();
+                            $training_date = strtotime($row["Date"]);
+                            $can_cancel = $now < $training_date;
+                             ?>
+                        
                             <tr>
                                 
                             <td><?php $listImg = $row['ImageCourse'];
@@ -98,9 +104,12 @@ else{
                                 <td><?php echo $row["Venue"];?></td>
                                 <td><?php echo $row["Date"];?></td>
                                 <td><?php echo $row["RequestStatus"];?></td>
-                                <!--Delete User-->
-                                <td><a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>Delete</a></td>
-
+                                 <!-- Display the "Delete" button only if the training request's date is in the future -->
+                            <?php if ($can_cancel): ?>
+                            <td><a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>Delete</a></td>
+                            <?php else: ?>
+                            <td>Cannot Cancel</td>
+        <?php endif; ?>
                             </tr>
                             <?php } ?>
                     </tbody>
