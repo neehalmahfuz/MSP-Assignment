@@ -31,53 +31,72 @@ ini_set("date.timezone","Asia/Kuching");
 </style>
 <body>
   <script>
-  function validateForm() {
-    var venue = document.forms["form"]["venue"].value;
-    var date = document.forms["form"]["date"].value;
-    var pax = document.forms["form"]["pax"].value;
-    var method = document.forms["form"]["method"].value;
-    var creditcard = document.forms["form"]["creditcard"].value;
-    var cvv = document.forms["form"]["cvv"].value;
+    function validateForm() {
+      var venue = document.forms["form"]["venue"].value;
+      var date = document.forms["form"]["date"].value;
+      var pax = document.forms["form"]["pax"].value;
+      var creditcard = document.forms["form"]["creditcard"].value;
+      var cvv = document.forms["form"]["cvv"].value;
+      var method = document.querySelector('input[name="method"]:checked');
 
-    var errors = [];
+      var errors = [];
 
-    if (venue == "" || date == "" || pax == "" || method == "" || creditcard == "" || cvv == "") {
-      errors.push("Please fill in all required fields.");
+      if (venue == "") {
+        errors.push("Please enter a venue.");
+      }
+
+      if (date == "") {
+        errors.push("Please select a date.");
+      }
+
+      if (pax == "") {
+        errors.push("Please enter the number of pax.");
+      }
+
+      if (!method) {
+        errors.push("Please select a payment method.");
+      }
+
+      if (method && method.value === "creditcardp") {
+        var regex = /^[0-9]{16}$/;
+        if (!regex.test(creditcard)) {
+          errors.push("Please enter a valid credit card number. It must be 16 digits with no dashes or spaces.");
+        }
+
+        var cvvRegex = /^[0-9]{3}$/;
+        if (!cvvRegex.test(cvv)) {
+          errors.push("Please enter a valid CVV. It must be a 3 digit number.");
+        }
+      } else if (method && method.value === "cashp") {
+        var cash = document.forms["form"]["cash"].value;
+        if (cash == "") {
+          errors.push("Please upload an image of your cash payment receipt.");
+        }
+      }
+
+      var maxPax = 6;
+      if (pax > maxPax) {
+        errors.push("Maximum number of pax is " + maxPax);
+      }
+
+      var dateFormat = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+      if (!date.match(dateFormat)) {
+        errors.push("Please enter a valid date in the format yyyy-mm-dd.");
+      }
+
+      var currentDate = new Date();
+      var selectedDate = new Date(date);
+      if (selectedDate < currentDate) {
+        errors.push("Please select a future date.");
+      }
+
+      if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+      }
+
+      return true;
     }
-
-    var regex = /^[0-9]{16}$/;
-    if (!regex.test(creditcard)) {
-      errors.push("Please enter a valid credit card number. It must be 16 digits with no dashes or spaces.");
-    }
-
-    var cvvRegex = /^[0-9]{3}$/;
-    if (!cvvRegex.test(cvv)) {
-      errors.push("Please enter a valid CVV. It must be a 3 digit number.");
-    }
-
-    var maxPax = 6;
-    if (pax > maxPax) {
-      errors.push("Maximum number of pax is " + maxPax);
-    }
-
-    var dateFormat = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
-    if (!date.match(dateFormat)) {
-      errors.push("Please enter a valid date in the format yyyy-mm-dd.");
-    }
-
-    var currentDate = new Date();
-    var selectedDate = new Date(date);
-    if (selectedDate < currentDate) {
-      errors.push("Please select a future date.");
-    }
-
-    if (errors.length > 0) {
-      alert(errors.join("\n"));
-      return false;
-    }
-
-    return true;
-  }
   </script>
 
 <?php
@@ -163,7 +182,7 @@ include("include/navbar.php");
             <h2>Checkout</h2>
             <div class="col-sm-6">
 
-                <form name="form" id="form" method="POST" enctype="multipart/form-data">
+                <form name="form" id="form" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                     <label for="venue">Venue</label>
                     <select name = "venue" id = "venue" class="form-control mb-3">
                       <option value = "Sarawak Plaza">Sarawak Plaza</option>
@@ -209,7 +228,18 @@ include("include/navbar.php");
                 </table>
 
                 <h5 class="mt-4">Payment Method</h5>
-
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="method" id="creditcardp" value="creditcardp">
+                  <label class="form-check-label" for="creditcardp">
+                    Credit Card Payment
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="method" id="cashp" value="cashp">
+                  <label class="form-check-label" for="cashp">
+                    Cash Payment
+                  </label>
+                </div>
 
                 <ul class="nav nav-tabs">
                     <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#credit">Credit Card</a></li>
