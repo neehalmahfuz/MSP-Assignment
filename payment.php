@@ -101,16 +101,22 @@ include("include/navbar.php");
     if($_SESSION['email'] == true){
         $SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
         $SelectOptionRs = mysqli_query($conn,$SelectOption);
+        $filename = $_FILES["cash"]["name"];
+        $tempname = $_FILES["cash"]["tmp_name"];
+        $folder = "receipts_images/".$filename;
+
+        mkdir("receipts_images");
+        move_uploaded_file($tempname, $folder);
         if(mysqli_num_rows($SelectOptionRs) > 0)
         {
             if($_POST['creditcard'] == ""){
-                $getVALUE = " Card";
+                $getVALUE = " Cash";
             }
             else{
-                $getVALUE = " Creadit Card";
+                $getVALUE = " Credit Card";
             }
             $Selectrow = mysqli_fetch_array($SelectOptionRs);
-            $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,Pax,CVV,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
+            $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,Pax,CVV,Images,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
             VALUES(
             '".trim($_SESSION["email"])."',
             '".trim($Selectrow['CourseName'])."',
@@ -118,6 +124,7 @@ include("include/navbar.php");
             '".trim($_POST["date"])."',
             '".trim($_POST["pax"])."',
             '".trim($_POST["cvv"])."',
+            '$folder',
             '".trim($getVALUE)."',
             '".trim($_POST['creditcard'])."',
             'Pending',
@@ -145,13 +152,18 @@ include("include/navbar.php");
 			while($Selectrow = mysqli_fetch_array($SelectOptionRs))
 			{
 				$SelectImg = $Selectrow['ImageCourse'];
+      }
+		}
+	}
+
+
 ?>
     <div class="container-fluid px-5">
         <div class="row my-5">
             <h2>Checkout</h2>
             <div class="col-sm-6">
 
-                <form name="form" id="form" method="POST" onsubmit="return validateForm()">
+                <form name="form" id="form" method="POST" enctype="multipart/form-data">
                     <label for="venue">Venue</label>
                     <select name = "venue" id = "venue" class="form-control mb-3">
                       <option value = "Sarawak Plaza">Sarawak Plaza</option>
@@ -183,7 +195,11 @@ include("include/navbar.php");
 						?>
                         </td>
                         <td>
-                            <p>RM <?php echo $Selectrow['PriceCourse']?></p>
+                            <p>RM <?php
+                            $SelectOptionRs = mysqli_query($conn,$SelectOption);
+                            $SelectOption = "SELECT * FROM tblcourse WHERE CourseName = '".$_GET['OptionId']."' ";
+                            $Selectrow = mysqli_fetch_array($SelectOptionRs);
+                             echo $Selectrow['PriceCourse']?></p>
                         </td>
                     </tr>
                     <tr>
@@ -258,11 +274,7 @@ include("include/navbar.php");
             </div>
         </div>
     </div>
-<?php
-			}
-		}
-	}
-?>
+
     <?php
     include("include/footer.php");
     ?>
