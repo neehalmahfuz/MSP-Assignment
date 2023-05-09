@@ -70,7 +70,7 @@ else{
                             <th>Training title</th>
                             <th>Pax</th>
                             <th>Price</th>
-                            <th>Payment method</th>
+                            <th>Payment Method</th>
                             <th>Venue</th>
                             <th>Date</th>
                             <th>Status</th>
@@ -79,47 +79,67 @@ else{
                     </thead>
                     <tbody>
                     <?php
-                   $filter = isset($_POST['filter']) ? $_POST['filter'] : 'all';
-                   if($filter == "all") {
-                     $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}'";
-                   } else {
-                     $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}' AND tbltrainingrequest.RequestStatus = '$filter'";
-                   }
-                    $result = mysqli_query($conn, $sel_query);
-                        while ($row = mysqli_fetch_assoc($result)) 
-                        {
-                            $now = time();
-                            $training_date = strtotime($row["Date"]);
-                            $can_cancel = $now < $training_date;
-                             ?>
-                        
-                            <tr>
-                                
-                            <td><?php $listImg = $row['ImageCourse'];
-                            echo $Img = '<img src="CourseImage/'.$listImg.'" class="w-100" height=100/>';?></td>
-                                <td><?php echo $row["CourseName"];?></td>
-                                <td><?php echo $row["Pax"];?></td>
-                                <td><?php echo $row["PriceCourse"];?></td>
-                                <td><?php echo $row["PaymentMethod"];?></td>
-                                <td><?php echo $row["Venue"];?></td>
-                                <td><?php echo $row["Date"];?></td>
-                                <td><?php echo $row["RequestStatus"];?></td>
-                                 <!-- Display the "Delete" button only if the training request's date is in the future -->
-                            <?php if ($can_cancel): ?>
-                            <td><a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>Delete</a></td>
-                            <?php else: ?>
-                            <td>Cannot Cancel</td>
+$filter = isset($_POST['filter']) ? $_POST['filter'] : 'all';
+if ($filter == "all") {
+    $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}'";
+} else {
+    $sel_query = "SELECT * FROM tblcourse, tbltrainingrequest, user WHERE tblcourse.CourseName = tbltrainingrequest.CourseName AND user.email = tbltrainingrequest.email AND tbltrainingrequest.email = '{$_SESSION['email']}' AND tbltrainingrequest.RequestStatus = '$filter'";
+}
+
+$current_date = date('Y-m-d');
+$result = mysqli_query($conn, $sel_query);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $training_date = $row["Date"];
+    $now = strtotime($current_date);
+    $training_date = strtotime($training_date);
+    $can_cancel = $now < $training_date;
+
+    $status = $row['RequestStatus'];
+    if ($status == "Confirmed" && $current_date == $row['Date']) {
+        $upd_query = "UPDATE tbltrainingrequest SET RequestStatus = 'Ongoing' WHERE RequestId = '{$row['RequestId']}'";
+        mysqli_query($conn, $upd_query);
+    } elseif ($status == "Ongoing" && $current_date > $row['Date']) {
+        $upd_query = "UPDATE tbltrainingrequest SET RequestStatus = 'Completed' WHERE RequestId = '{$row['RequestId']}'";
+        mysqli_query($conn, $upd_query);
+    }
+?>
+    <tr>
+        <td>
+            <?php 
+                $listImg = $row['ImageCourse'];
+                echo $Img = '<img src="CourseImage/'.$listImg.'" class="w-100" height=100/>';
+            ?>
+        </td>
+        <td><?php echo $row["CourseName"];?></td>
+        <td><?php echo $row["Pax"];?></td>
+        <td><?php echo $row["PriceCourse"];?></td>
+        <td><?php echo $row["PaymentMethod"];?></td>
+        <td><?php echo $row["Venue"];?></td>
+        <td><?php echo $row["Date"];?></td>
+        <td><?php echo $row["RequestStatus"];?></td>
+        <!-- Display the "Delete" button only if the training request's date is in the future -->
+        <?php if ($can_cancel): ?>
+            <td>
+                <a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>
+                    Delete
+                </a>
+            </td>
+        <?php else: ?>
+            <td>Cannot Cancel</td>
         <?php endif; ?>
-                            </tr>
+    </tr>
+<?php 
+} 
+?>
+
                             <?php } ?>
                     </tbody>
                 </table>
             </div>
         </div>   
     </div>
-    <?php
-}
-?>
+
 
     <?php
     include("include/footer.php");
