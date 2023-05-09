@@ -35,7 +35,14 @@ $dbname = "database";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 if($_GET['Id'] == "GetRequest"){
 
+    $SelectTraining = "SELECT * FROM tbltrainingrequest WHERE RequestId  = '".$_GET['RequestId']."' ";
+            $SelectTrainingresult = mysqli_query($conn, $SelectTraining);
+            while ($row = mysqli_fetch_assoc($SelectTrainingresult)) {
+                session_start();
+                $_SESSION['email'] = $row["email"];
+            }
     
+
     $UpdateRequest = "UPDATE tbltrainingrequest SET
         PaymentStatus = 'Approve',
         RequestStatus = 'confirmed'
