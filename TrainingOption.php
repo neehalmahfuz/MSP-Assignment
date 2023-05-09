@@ -58,7 +58,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             </div>
             
            <?php
-			$DisProfile = "SELECT * FROM tblcourse";
+			$DisProfile = "SELECT * FROM tblcourse WHERE ConpanyStatus = 'Active'";
 			$DisProfileRs = mysqli_query($conn,$DisProfile);
 
 			if(mysqli_num_rows($DisProfileRs) > 0)
