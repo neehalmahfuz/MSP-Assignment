@@ -69,8 +69,9 @@ else{
                             <th>Image</th>
                             <th>Training title</th>
                             <th>Price</th>
-                            <th>Date</th>
                             <th>Payment method</th>
+                            <th>Venue</th>
+                            <th>Date</th>
                             <th>Status</th>
                             <th>Delete</th>
                         </tr>
@@ -91,8 +92,9 @@ else{
                             echo $Img = '<img src="CourseImage/'.$listImg.'" class="w-100" height=100/>';?></td>
                                 <td><?php echo $row["CourseName"];?></td>
                                 <td><?php echo $row["PriceCourse"];?></td>
-                                <td><?php echo $row["RequestTime"];?></td>
                                 <td><?php echo $row["PaymentMethod"];?></td>
+                                <td><?php echo $row["Venue"];?></td>
+                                <td><?php echo $row["Date"];?></td>
                                 <td><?php echo $row["RequestStatus"];?></td>
                                 <!--Delete User-->
                                 <td><a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>Delete</a></td>
