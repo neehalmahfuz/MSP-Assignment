@@ -32,20 +32,13 @@ $password = "";
 $dbname = "database";
     
 // default port is not working for mySQL, assign the new port manually, can discard this
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
 if($_GET['Id'] == "GetRequest"){
 
-    $SelectTraining = "SELECT * FROM tbltrainingrequest WHERE RequestId  = '".$_GET['RequestId']."' ";
-            $SelectTrainingresult = mysqli_query($conn, $SelectTraining);
-            while ($row = mysqli_fetch_assoc($SelectTrainingresult)) {
-                session_start();
-                $_SESSION['email'] = $row["email"];
-            }
     
-
     $UpdateRequest = "UPDATE tbltrainingrequest SET
-        PaymentStatus = 'Approve',
-        RequestStatus = 'confirmed'
+        PaymentStatus = 'Approved',
+        RequestStatus = 'Confirmed'
 		WHERE RequestId  = '".$_GET['RequestId']."' ";
 		$UpdateResult = mysqli_query($conn,$UpdateRequest);
 		if($UpdateResult)
