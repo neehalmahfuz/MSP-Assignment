@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2023 at 04:07 PM
+-- Generation Time: May 09, 2023 at 05:52 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -55,10 +55,10 @@ CREATE TABLE `tblcourse` (
 --
 
 INSERT INTO `tblcourse` (`CourseId`, `CourseName`, `Description`, `Duration`, `ImageCourse`, `PriceCourse`, `InstructorName`, `LocationId`, `ConpanyStatus`) VALUES
-(1, 'Sales and Marketing Skills', 'Improve sales skills and effectiveness, as well as understand the latest trends and strategies in marketing.', '5 hours', 'Sales-Marketing-Alignment-Power.jpg', 120, 'Jacky lim', 0, 'Open'),
-(2, 'Technical and software development skill', 'Helps technical and software developers improve their programming and software development skills, as well as stay abreast of the latest technology trends and developments.', '8 hours', 'Technical and software development skills.jpg', 150, 'Jacky lim', 0, 'Open'),
-(3, 'Leadership and Management Skills', 'Help leaders and managers improve their leadership and management skills, as well as understand best practices and strategies.', '5 hours', 'leadership-skills.png', 110, 'Jacky lim', 0, 'Open'),
-(4, 'Project Management and Team Collaboratio', 'Can help project managers and team members master project management best practices and techniques, as well as learn how to collaborate with team members', '6 hours', 'Project Management and Team Collaboration.png', 130, 'Jacky lim', 0, 'Open');
+(1, 'Sales and Marketing Skills', 'Improve sales skills and effectiveness, as well as understand the latest trends and strategies in marketing.', '5 hours', 'Sales-Marketing-Alignment-Power.jpg', 120, 'Jacky lim', 0, 'Active'),
+(2, 'Technical and software development skill', 'Helps technical and software developers improve their programming and software development skills, as well as stay abreast of the latest technology trends and developments.', '8 hours', 'Technical and software development skills.jpg', 150, 'Jacky lim', 0, 'Active'),
+(3, 'Leadership and Management Skills', 'Help leaders and managers improve their leadership and management skills, as well as understand best practices and strategies.', '5 hours', 'leadership-skills.png', 110, 'Jacky lim', 0, 'Active'),
+(4, 'Project Management and Team Collaboratio', 'Can help project managers and team members master project management best practices and techniques, as well as learn how to collaborate with team members', '6 hours', 'Project Management and Team Collaboration.png', 130, 'Jacky lim', 0, 'Active');
 
 -- --------------------------------------------------------
 
