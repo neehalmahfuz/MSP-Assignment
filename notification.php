@@ -23,6 +23,13 @@
 <?php
 
 include("include/navbar.php");
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "database";
+    
+// default port is not working for mySQL, assign the new port manually, can discard this
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 
 ?>
 <div class="container-fluid pt-5 pb-5 px-5">
@@ -30,38 +37,38 @@ include("include/navbar.php");
   <div class="col-sm-12">
     <h2 class="mb-3">Notifications</h2>
     <div class="card-body p-5" data-spy="scroll" data-target="#card-body">
+      
+        <?php
+        $select = "SELECT * FROM user,tblcourse,tbltrainingrequest WHERE user.email = tbltrainingrequest.email AND tblcourse.CourseName = tbltrainingrequest.CourseName AND tbltrainingrequest.RequestStatus = 'confirmed' AND tbltrainingrequest.email = '".$_SESSION['email']."' ";
+        $result = mysqli_query($conn, $select);
+        while ($row = mysqli_fetch_assoc($result)) {
+          $date = $row["Date"];
+          $date_timestamp = strtotime($date);
+          $remaining_days = ceil(($date_timestamp - time()) / (60 * 60 * 24));
+        ?>
+        
         <div class="card mb-4">
           <div class="card-body">
-            <p class="small mb-0">System</p>
-            <p>Your training ABC will start on 12 May 2023 at 12:00 PM</p>
+            <p class="small mb-0">Admin</p>
+            <p>Your  <span class="fw-bold"><?php echo $row["CourseName"]; ?></span> training have been <span class="text-primary"><?php echo $row["RequestStatus"]; ?></p>
           </div>
         </div>
 
-        <div class="card mb-4">
-          <div class="card-body">
-            <p class="small mb-0">System</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora sequi, iusto, ab iure sapiente maxime laudantium vero, nostrum architecto eum iste soluta distinctio! Ipsam suscipit ipsa cum aperiam harum voluptas.</p>
-          </div>
-        </div>
 
         <div class="card mb-4">
           <div class="card-body">
-            <p class="small mb-0">System</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora sequi, iusto, ab iure sapiente maxime laudantium vero, nostrum architecto eum iste soluta distinctio! Ipsam suscipit ipsa cum aperiam harum voluptas.</p>
+            <p class="small mb-0">Admin</p>
+            <p>Your <span class="fw-bold"><?php echo $row["CourseName"]; ?></span> training at <?php echo $row["Venue"]; ?>  will start on <span class="text-primary"><?php echo $date; ?></span> (<?php echo $remaining_days; ?> days remaining)</p>
           </div>
         </div>
-
-        <div class="card mb-4">
-          <div class="card-body">
-            <p class="small mb-0">System</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora sequi, iusto, ab iure sapiente maxime laudantium vero, nostrum architecto eum iste soluta distinctio! Ipsam suscipit ipsa cum aperiam harum voluptas.</p>
-          </div>
-        </div>
+        <?php
+        }
+        ?>
+        
       </div>
   </div>
 </div>
 </div>
-
 
 
 <?php
