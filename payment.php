@@ -143,7 +143,7 @@ include("include/navbar.php");
             '".trim($_POST["date"])."',
             '".trim($_POST["pax"])."',
             '".trim($_POST["cvv"])."',
-            '$folder',
+            '$filename',
             '".trim($getVALUE)."',
             '".trim($_POST['creditcard'])."',
             'Pending',
