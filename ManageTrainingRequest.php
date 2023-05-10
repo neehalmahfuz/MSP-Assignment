@@ -32,7 +32,7 @@ $password = "";
 $dbname = "database";
     
 // default port is not working for mySQL, assign the new port manually, can discard this
-$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 if($_GET['Id'] == "GetRequest"){
 
     
@@ -65,6 +65,7 @@ else{
                             <th>Email</th>
                             <th>Course Name</th>
                             <th>Payment method</th>
+                            <th>Cash Receipt</th>
                             <th>Payment status</th>
                             <th>Request Time</th>
                             <th>Request status</th>
@@ -85,6 +86,23 @@ else{
             <td><?php echo $row["email"];?></td>
             <td><?php echo $row["CourseName"];?></td>
             <td><?php echo $row["PaymentMethod"];?></td>
+            <td>
+                <?php 
+                    if ($row["PaymentMethod"] == "Cash") {
+                ?>
+                    <a href="receipts_images/<?php echo $row['Images']; ?>">
+                        <img src="receipts_images/<?php echo $row['Images']; ?>" class="w-100" height="100">
+                    </a>
+                <?php
+                    } else {
+                ?>
+                    
+                <?php
+                    }
+                ?>
+            </td>
+
+
             <td><?php echo $row["PaymentStatus"];?></td>
             <td><?php echo $row["RequestTime"];?></td>
             <td><?php echo $row["RequestStatus"];?></td>
