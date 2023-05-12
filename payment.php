@@ -126,7 +126,7 @@ include("include/navbar.php");
 
           if (!empty($error_message)) {
               echo "<script>alert('$error_message');</script>";
-              echo "<script>location='TrainingOption.php';</script>";
+              echo "<script>window.history.back();</script>";
           } else {
             
               if($_POST['creditcard'] == ""){
