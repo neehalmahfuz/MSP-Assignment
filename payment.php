@@ -13,40 +13,6 @@ ini_set("date.timezone","Asia/Kuching");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" integrity="sha512-Lr+LJdIOA6wOg6ZJGmug+UO4DxDgFkxmcJgzXc+H0j01OQJokh0e5Q5cNsvYllRmb5fBrEdJyJP9X3q/3yFnGQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Payment Portal</title>
-    <script>
-        window.onload = function() {
-
-      var creditTab = document.querySelector('.nav-link[data-bs-toggle="tab"][href="#credit"]');
-      var cashTab = document.querySelector('.nav-link[data-bs-toggle="tab"][href="#cash"]');
-
-      // add click event listeners
-      creditTab.addEventListener('click', function() {
-
-        document.getElementById('creditcard').disabled = false;
-        document.getElementById('cvv').disabled = false;
-        document.getElementById('month').disabled = false;
-        document.getElementById('year').disabled = false;
-        document.getElementById('cash').disabled = true;
-      });
-
-      cashTab.addEventListener('click', function() {
-
-        document.getElementById('creditcard').disabled = true;
-        document.getElementById('cvv').disabled = true;
-        document.getElementById('month').disabled = true;
-        document.getElementById('year').disabled = true;
-        document.getElementById('cash').disabled = false;
-
-
-        document.getElementById('creditcard').value = '';
-        document.getElementById('cvv').value = '';
-      });
-    }
-
-    function clearFileInput() {
-        document.getElementById('cash_receipt').value = '';
-    }
-    </script>
 </head>
 <style>
     .btn-training {
@@ -64,6 +30,74 @@ ini_set("date.timezone","Asia/Kuching");
 
 </style>
 <body>
+  <script>
+    function validateForm() {
+      var venue = document.forms["form"]["venue"].value;
+      var date = document.forms["form"]["date"].value;
+      var pax = document.forms["form"]["pax"].value;
+      var creditcard = document.forms["form"]["creditcard"].value;
+      var cvv = document.forms["form"]["cvv"].value;
+      var method = document.querySelector('input[name="method"]:checked');
+
+      var errors = [];
+
+      if (venue == "") {
+        errors.push("Please enter a venue.");
+      }
+
+      if (date == "") {
+        errors.push("Please select a date.");
+      }
+
+      if (pax == "") {
+        errors.push("Please enter the number of pax.");
+      }
+
+      if (!method) {
+        errors.push("Please select a payment method.");
+      }
+
+      if (method && method.value === "creditcardp") {
+        var regex = /^[0-9]{16}$/;
+        if (!regex.test(creditcard)) {
+          errors.push("Please enter a valid credit card number. It must be 16 digits with no dashes or spaces.");
+        }
+
+        var cvvRegex = /^[0-9]{3}$/;
+        if (!cvvRegex.test(cvv)) {
+          errors.push("Please enter a valid CVV. It must be a 3 digit number.");
+        }
+      } else if (method && method.value === "cashp") {
+        var cash = document.forms["form"]["cash"].value;
+        if (cash == "") {
+          errors.push("Please upload an image of your cash payment receipt.");
+        }
+      }
+
+      var maxPax = 6;
+      if (pax > maxPax) {
+        errors.push("Maximum number of pax is " + maxPax);
+      }
+
+      var dateFormat = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+      if (!date.match(dateFormat)) {
+        errors.push("Please enter a valid date in the format yyyy-mm-dd.");
+      }
+
+      var currentDate = new Date();
+      var selectedDate = new Date(date);
+      if (selectedDate < currentDate) {
+        errors.push("Please select a future date.");
+      }
+
+      if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+      }
+
+      return true;
+    }
+  </script>
 
 
 <?php
@@ -90,80 +124,42 @@ include("include/navbar.php");
         $filename = $_FILES["cash"]["name"];
         $tempname = $_FILES["cash"]["tmp_name"];
         $folder = "receipts_images/".$filename;
-        $Selectrow = mysqli_fetch_array($SelectOptionRs);
-        $selected_date = strtotime($_POST['date']);
-        $current_date = strtotime(date('Y-m-d'));
+
         mkdir("receipts_images");
         move_uploaded_file($tempname, $folder);
         if(mysqli_num_rows($SelectOptionRs) > 0)
         {
-          $error_message = '';
-
-          if(empty($_POST['venue'])){
-              $error_message .= 'Please enter a venue.\n';
-          }
-          if(empty($_POST['date'])){
-              $error_message .= 'Please select a date.\n';
-          }
-          if ($selected_date < $current_date) {
-            $error_message .= 'Please select a future date.\n';
-          }
-          if(empty($_POST['pax'])){
-              $error_message .= 'Please enter the number of pax.\n';
-          }
-          if(empty($_POST['cvv']) && empty($filename)){
-              $error_message .= 'Please enter the CVV number. It must be a 3 digit number\n';
-          }
-          if($_POST['creditcard'] == "" && $_POST['cvv'] == "" && empty($filename)){
-              $error_message .= 'Please select a payment method.\n';
-          }
-          if(strlen($_POST['creditcard']) !== 16 && empty($filename)){
-              $error_message .= 'Please enter a valid credit card number. It must be 16 digits with no dashes or spaces.\n';
-          }
-          if(!empty($filename) && (!empty($_POST['creditcard']) || !empty($_POST['cvv']))){
-              $error_message .= 'Cannot make payment with both credit card and cash.\n';
-          }
-
-          if (!empty($error_message)) {
-              echo "<script>alert('$error_message');</script>";
-              echo "<script>window.history.back();</script>";
-          } else {
-            
-              if($_POST['creditcard'] == ""){
+            if($_POST['creditcard'] == ""){
                 $getVALUE = " Cash";
-              }
-              else{
-                  $getVALUE = " Credit Card";
-              }
-              $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,Pax,CVV,Images,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
-              VALUES(
-              '".trim($_SESSION["email"])."',
-              '".trim($Selectrow['CourseName'])."',
-              '".trim($_POST["venue"])."',
-              '".trim($_POST["date"])."',
-              '".trim($_POST["pax"])."',
-              '".trim($_POST["cvv"])."',
-              '$filename',
-              '".trim($getVALUE)."',
-              '".trim($_POST['creditcard'])."',
-              'Pending',
-              '".$datetime_str."',
-              'Pending')";
-              $RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
-              if($RequestInfoResult)
-              {
-                  echo "<script>alert('New record created successfully');</script>";
-                  echo "<script>location='TrainingOption.php';</script>";
-              }
-              else
-                  echo "<script>alert('Something wrong');</script>";
-              echo "<script>location='index.php';</script>";
-          }
+            }
+            else{
+                $getVALUE = " Credit Card";
+            }
+            $Selectrow = mysqli_fetch_array($SelectOptionRs);
+            $AddRequestInfo = "INSERT INTO tbltrainingrequest(email,CourseName,Venue,Date,Pax,CVV,Images,PaymentMethod,CreditCardNum,PaymentStatus,RequestTime,RequestStatus)
+            VALUES(
+            '".trim($_SESSION["email"])."',
+            '".trim($Selectrow['CourseName'])."',
+            '".trim($_POST["venue"])."',
+            '".trim($_POST["date"])."',
+            '".trim($_POST["pax"])."',
+            '".trim($_POST["cvv"])."',
+            '$filename',
+            '".trim($getVALUE)."',
+            '".trim($_POST['creditcard'])."',
+            'Pending',
+            '".$datetime_str."',
+            'Pending')";
+            $RequestInfoResult = mysqli_query($conn,$AddRequestInfo);
+            if($RequestInfoResult)
+            {
+                echo "<script>alert('New record created successfully');</script>";
+                echo "<script>location='index.php';</script>";
+            }
+            else
+                echo "<script>alert('Something wrong');</script>";
+            echo "<script>location='index.php';</script>";
         }
-    }
-    else{
-        echo "<script>alert('Please login first');</script>";
-        echo "<script>location='login.php';</script>";
     }
 }
 
@@ -176,7 +172,9 @@ include("include/navbar.php");
 			while($Selectrow = mysqli_fetch_array($SelectOptionRs))
 			{
 				$SelectImg = $Selectrow['ImageCourse'];
-      
+      }
+		}
+	}
 
 
 ?>
@@ -199,7 +197,7 @@ include("include/navbar.php");
                     <input type="date" class="form-control mb-3" id="date" name="date">
 
                     <label for="pax">Pax</label>
-                    <input type="number" class="form-control mb-3" id="pax" name="pax" placeholder="Amount of people.." min="1" max="6" >
+                    <input type="number" class="form-control mb-3" id="pax" name="pax" placeholder="Amount of people.." min="1" max="6" oninput="updateSubtotal()">
 
             </div>
             <div class="col-sm-6">
@@ -224,16 +222,39 @@ include("include/navbar.php");
                              echo $Selectrow['PriceCourse']?></p>
                         </td>
                     </tr>
+                    <script>
+                      function updateSubtotal() {
+                        var pax = document.forms["form"]["pax"].value;
+                        var subtotal = <?php echo $Selectrow['PriceCourse']; ?>;
+                        var newSubtotal = pax * subtotal;
+                        document.getElementById("subtotal").textContent = "RM " + newSubtotal;
+                      }
+                    </script>
                     <tr>
                         <th>Total</th>
-                        <td>RM <?php echo $Selectrow['PriceCourse']?></td>
+                        <td>
+                          <p id="subtotal">RM <?php echo $Selectrow['PriceCourse']; ?>
+                          </p>
+                       </td>
                     </tr>
                 </table>
 
-                
+                <h5 class="mt-4">Payment Method</h5>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="method" id="creditcardp" value="creditcardp">
+                  <label class="form-check-label" for="creditcardp">
+                    Credit Card Payment
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="method" id="cashp" value="cashp">
+                  <label class="form-check-label" for="cashp">
+                    Cash Payment
+                  </label>
+                </div>
 
                 <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#credit" onclick="clearFileInput()">Credit Card</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#credit">Credit Card</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#cash">Cash</a></li>
                 </ul>
 
@@ -242,11 +263,11 @@ include("include/navbar.php");
                     <div class="row mt-3">
                             <div class="col-8">
                                 <label for="creditcard">Card number</label>
-                                <input type="text" class="form-control mb-3" id="creditcard" name="creditcard" placeholder="***************" maxlength = "16">
+                                <input type="text" class="form-control mb-3" id="creditcard" name="creditcard" placeholder="***************">
                             </div>
                             <div class="col-4">
                                 <label for="cvv">CVV</label>
-                                <input type="text" class="form-control mb-3" name="cvv" id="cvv" placeholder="***" maxlength = "3">
+                                <input type="text" class="form-control mb-3" name="cvv" id="cvv" placeholder="***">
                             </div>
                             <label for="month">Valid until</label>
                             <div class="col-6">
@@ -283,7 +304,7 @@ include("include/navbar.php");
                                 <div class="row mt-3">
                                     <div class="col-8">
                                         <label for="cash" class="form-label">Payment Receipt</label>
-                                        <input type="file" class="form-control mb-3" id="cash_receipt" name="cash">
+                                        <input type="file" class="form-control mb-3" id="cash" name="cash">
                                     </div>
                                 </div>
                             </div>
@@ -295,11 +316,7 @@ include("include/navbar.php");
             </div>
         </div>
     </div>
-    <?php
-			}
-		}
-	}
-?>
+
     <?php
     include("include/footer.php");
     ?>
