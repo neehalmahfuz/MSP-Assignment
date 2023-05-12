@@ -13,6 +13,40 @@ ini_set("date.timezone","Asia/Kuching");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" integrity="sha512-Lr+LJdIOA6wOg6ZJGmug+UO4DxDgFkxmcJgzXc+H0j01OQJokh0e5Q5cNsvYllRmb5fBrEdJyJP9X3q/3yFnGQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Payment Portal</title>
+    <script>
+        window.onload = function() {
+
+      var creditTab = document.querySelector('.nav-link[data-bs-toggle="tab"][href="#credit"]');
+      var cashTab = document.querySelector('.nav-link[data-bs-toggle="tab"][href="#cash"]');
+
+      // add click event listeners
+      creditTab.addEventListener('click', function() {
+
+        document.getElementById('creditcard').disabled = false;
+        document.getElementById('cvv').disabled = false;
+        document.getElementById('month').disabled = false;
+        document.getElementById('year').disabled = false;
+        document.getElementById('cash').disabled = true;
+      });
+
+      cashTab.addEventListener('click', function() {
+
+        document.getElementById('creditcard').disabled = true;
+        document.getElementById('cvv').disabled = true;
+        document.getElementById('month').disabled = true;
+        document.getElementById('year').disabled = true;
+        document.getElementById('cash').disabled = false;
+
+
+        document.getElementById('creditcard').value = '';
+        document.getElementById('cvv').value = '';
+      });
+    }
+
+    function clearFileInput() {
+        document.getElementById('cash_receipt').value = '';
+    }
+    </script>
 </head>
 <style>
     .btn-training {
@@ -199,7 +233,7 @@ include("include/navbar.php");
                 
 
                 <ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#credit">Credit Card</a></li>
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#credit" onclick="clearFileInput()">Credit Card</a></li>
                     <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#cash">Cash</a></li>
                 </ul>
 
@@ -249,7 +283,7 @@ include("include/navbar.php");
                                 <div class="row mt-3">
                                     <div class="col-8">
                                         <label for="cash" class="form-label">Payment Receipt</label>
-                                        <input type="file" class="form-control mb-3" id="cash" name="cash">
+                                        <input type="file" class="form-control mb-3" id="cash_receipt" name="cash">
                                     </div>
                                 </div>
                             </div>
