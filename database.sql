@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2023 at 05:43 AM
+-- Generation Time: May 16, 2023 at 10:43 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,17 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `database`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `custom_requests`
---
-
-CREATE TABLE `custom_requests` (
-  `id` int(11) NOT NULL,
-  `request_text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,60 +48,6 @@ INSERT INTO `tblcourse` (`CourseId`, `CourseName`, `Description`, `Duration`, `I
 (3, 'Leadership and Management Skills', 'Help leaders and managers improve their leadership and management skills, as well as understand best practices and strategies.', '5 hours', 'leadership-skills.png', 110, 'Jacky lim', 'Active'),
 (4, 'Project Management and Team Collaboratio', 'Can help project managers and team members master project management best practices and techniques, as well as learn how to collaborate with team members', '6 hours', 'Project Management and Team Collaboration.png', 130, 'Jacky lim', 'Active'),
 (6, 'MSP', 'testing', '8 hours', 'msp.jpg', 130, 'Jacky lim', 'Active');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblenrollment`
---
-
-CREATE TABLE `tblenrollment` (
-  `EnrollId` int(10) NOT NULL,
-  `CName` varchar(30) DEFAULT NULL,
-  `CourseName` varchar(40) DEFAULT NULL,
-  `EnrollDate` datetime DEFAULT NULL,
-  `ScheduleId` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblinstructors`
---
-
-CREATE TABLE `tblinstructors` (
-  `InstructorId` int(10) NOT NULL,
-  `UserIc` varchar(25) DEFAULT NULL,
-  `InstructorName` varchar(30) DEFAULT NULL,
-  `InstructorPhone` varchar(20) DEFAULT NULL,
-  `InstructorEmail` varchar(40) DEFAULT NULL,
-  `InstructorAddresses` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbllocation`
---
-
-CREATE TABLE `tbllocation` (
-  `LocationId` int(10) NOT NULL,
-  `RoomNumber` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblschedule`
---
-
-CREATE TABLE `tblschedule` (
-  `ScheduleId` int(10) NOT NULL,
-  `EnrollId` int(10) DEFAULT NULL,
-  `StartTime` datetime DEFAULT NULL,
-  `EndTime` datetime DEFAULT NULL,
-  `ScheduleStatus` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -146,56 +81,6 @@ INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMe
 (3, 'yie1@gmail.com', 'Technical and software development skill', 'Credit Card', '1212121212121256', 'Pending', '2023-05-10 23:49:30', 'Pending', 'Cityone Megamall Eve', '2023-05-31', 3, 123, ''),
 (8, 'yie1@gmail.com', 'Technical and software development skill', 'Cash', '', 'Pending', '2023-05-11 14:25:57', 'Pending', '11Ridgeway Kuching', '2023-05-13', 2, 0, 'msp.jpg'),
 (9, 'yie1@gmail.com', 'MSP', 'Cash', '', 'Approved', '2023-05-15 14:16:52', 'Confirmed', 'Tunku Abdul Rahman P', '2023-05-18', 2, 0, 'msp.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `trainings`
---
-
-CREATE TABLE `trainings` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `training_requests`
---
-
-CREATE TABLE `training_requests` (
-  `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `training_id` int(11) NOT NULL,
-  `time` datetime NOT NULL,
-  `date` date NOT NULL,
-  `status_id` int(11) NOT NULL,
-  `venue_id` int(11) NOT NULL,
-  `custom_request_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `training_statuses`
---
-
-CREATE TABLE `training_statuses` (
-  `id` int(11) NOT NULL,
-  `status` enum('pending','ongoing','done') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `training_venues`
---
-
-CREATE TABLE `training_venues` (
-  `id` int(11) NOT NULL,
-  `venue_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -238,75 +123,16 @@ INSERT INTO `user` (`firstName`, `lastName`, `birthDate`, `phone`, `state`, `ema
 --
 
 --
--- Indexes for table `custom_requests`
---
-ALTER TABLE `custom_requests`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
   ADD PRIMARY KEY (`CourseId`);
 
 --
--- Indexes for table `tblenrollment`
---
-ALTER TABLE `tblenrollment`
-  ADD PRIMARY KEY (`EnrollId`);
-
---
--- Indexes for table `tblinstructors`
---
-ALTER TABLE `tblinstructors`
-  ADD PRIMARY KEY (`InstructorId`);
-
---
--- Indexes for table `tbllocation`
---
-ALTER TABLE `tbllocation`
-  ADD PRIMARY KEY (`LocationId`);
-
---
--- Indexes for table `tblschedule`
---
-ALTER TABLE `tblschedule`
-  ADD PRIMARY KEY (`ScheduleId`);
-
---
 -- Indexes for table `tbltrainingrequest`
 --
 ALTER TABLE `tbltrainingrequest`
   ADD PRIMARY KEY (`RequestId`);
-
---
--- Indexes for table `trainings`
---
-ALTER TABLE `trainings`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `training_requests`
---
-ALTER TABLE `training_requests`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `email` (`email`),
-  ADD KEY `training_id` (`training_id`),
-  ADD KEY `status_id` (`status_id`),
-  ADD KEY `venue_id` (`venue_id`),
-  ADD KEY `custom_request_id` (`custom_request_id`);
-
---
--- Indexes for table `training_statuses`
---
-ALTER TABLE `training_statuses`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `training_venues`
---
-ALTER TABLE `training_venues`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -319,84 +145,16 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `custom_requests`
---
-ALTER TABLE `custom_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
   MODIFY `CourseId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `tblenrollment`
---
-ALTER TABLE `tblenrollment`
-  MODIFY `EnrollId` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblinstructors`
---
-ALTER TABLE `tblinstructors`
-  MODIFY `InstructorId` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbllocation`
---
-ALTER TABLE `tbllocation`
-  MODIFY `LocationId` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblschedule`
---
-ALTER TABLE `tblschedule`
-  MODIFY `ScheduleId` int(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tbltrainingrequest`
 --
 ALTER TABLE `tbltrainingrequest`
   MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `trainings`
---
-ALTER TABLE `trainings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `training_requests`
---
-ALTER TABLE `training_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `training_statuses`
---
-ALTER TABLE `training_statuses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `training_venues`
---
-ALTER TABLE `training_venues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `training_requests`
---
-ALTER TABLE `training_requests`
-  ADD CONSTRAINT `training_requests_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user` (`email`),
-  ADD CONSTRAINT `training_requests_ibfk_2` FOREIGN KEY (`training_id`) REFERENCES `trainings` (`id`),
-  ADD CONSTRAINT `training_requests_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `training_statuses` (`id`),
-  ADD CONSTRAINT `training_requests_ibfk_4` FOREIGN KEY (`venue_id`) REFERENCES `training_venues` (`id`),
-  ADD CONSTRAINT `training_requests_ibfk_5` FOREIGN KEY (`custom_request_id`) REFERENCES `custom_requests` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
