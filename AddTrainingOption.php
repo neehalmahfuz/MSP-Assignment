@@ -92,7 +92,7 @@ else if($_POST['btnAddTrainingInfo']) {
         mkdir("CourseImage");
         move_uploaded_file($TempCourseImg,"CourseImage/".$CourseImg);
         
-        $AddCourseInfo = "INSERT INTO tblcourse(CourseName,Description,Duration,ImageCourse,PriceCourse,InstructorName,LocationId,ConpanyStatus)
+        $AddCourseInfo = "INSERT INTO tblcourse(CourseName,Description,Duration,ImageCourse,PriceCourse,InstructorName,ConpanyStatus)
         VALUES(
         '".$courseName."',
         '".trim($_POST["DescriptionTxtArea"])."',
@@ -100,7 +100,6 @@ else if($_POST['btnAddTrainingInfo']) {
         '$CourseImg',
         '".(trim($_POST["textPrice"]))."',
         'Jacky lim',
-        'B001',
         '".trim($_POST["setStatus"])."')";
         
         $CourseInfoResult = mysqli_query($conn,$AddCourseInfo);
@@ -162,6 +161,7 @@ else if($_GET['Id'] == 'AddTraining' || $_POST['btnSelect'] || $_GET['Id'] == 'E
                             <input type="textarea" class="form-control mb-3" rows="4" cols="40" id="DescriptionTxtArea" name="DescriptionTxtArea" placeholder="Description" value = "<?php echo $SelectTrainingRow['Description'];?>">
                         </div>
                     </div>
+                    
                     <div class="row mb-3">
                         <label for="CourseImage" class="col-sm-4 col-form-label">Course Image</label>
                         <div class="col-sm-8">

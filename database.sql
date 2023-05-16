@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2023 at 11:59 PM
+-- Generation Time: May 16, 2023 at 05:43 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,7 +46,6 @@ CREATE TABLE `tblcourse` (
   `ImageCourse` varchar(255) DEFAULT NULL,
   `PriceCourse` int(10) DEFAULT NULL,
   `InstructorName` varchar(30) DEFAULT NULL,
-  `LocationId` int(10) DEFAULT NULL,
   `ConpanyStatus` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -54,11 +53,12 @@ CREATE TABLE `tblcourse` (
 -- Dumping data for table `tblcourse`
 --
 
-INSERT INTO `tblcourse` (`CourseId`, `CourseName`, `Description`, `Duration`, `ImageCourse`, `PriceCourse`, `InstructorName`, `LocationId`, `ConpanyStatus`) VALUES
-(1, 'Sales and Marketing Skills', 'Improve sales skills and effectiveness, as well as understand the latest trends and strategies in marketing.', '5 hours', 'Sales-Marketing-Alignment-Power.jpg', 120, 'Jacky lim', 0, 'Active'),
-(2, 'Technical and software development skill', 'Helps technical and software developers improve their programming and software development skills, as well as stay abreast of the latest technology trends and developments.', '8 hours', 'Technical and software development skills.jpg', 150, 'Jacky lim', 0, 'Active'),
-(3, 'Leadership and Management Skills', 'Help leaders and managers improve their leadership and management skills, as well as understand best practices and strategies.', '5 hours', 'leadership-skills.png', 110, 'Jacky lim', 0, 'Active'),
-(4, 'Project Management and Team Collaboratio', 'Can help project managers and team members master project management best practices and techniques, as well as learn how to collaborate with team members', '6 hours', 'Project Management and Team Collaboration.png', 130, 'Jacky lim', 0, 'Active');
+INSERT INTO `tblcourse` (`CourseId`, `CourseName`, `Description`, `Duration`, `ImageCourse`, `PriceCourse`, `InstructorName`, `ConpanyStatus`) VALUES
+(1, 'Sales and Marketing Skills', 'Improve sales skills and effectiveness, as well as understand the latest trends and strategies in marketing.', '5 hours', 'Sales-Marketing-Alignment-Power.jpg', 120, 'Jacky lim', 'Active'),
+(2, 'Technical and software development skill', 'Helps technical and software developers improve their programming and software development skills, as well as stay abreast of the latest technology trends and developments.', '8 hours', 'Technical and software development skills.jpg', 150, 'Jacky lim', 'Active'),
+(3, 'Leadership and Management Skills', 'Help leaders and managers improve their leadership and management skills, as well as understand best practices and strategies.', '5 hours', 'leadership-skills.png', 110, 'Jacky lim', 'Active'),
+(4, 'Project Management and Team Collaboratio', 'Can help project managers and team members master project management best practices and techniques, as well as learn how to collaborate with team members', '6 hours', 'Project Management and Team Collaboration.png', 130, 'Jacky lim', 'Active'),
+(6, 'MSP', 'testing', '8 hours', 'msp.jpg', 130, 'Jacky lim', 'Active');
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,11 @@ CREATE TABLE `tbltrainingrequest` (
 --
 
 INSERT INTO `tbltrainingrequest` (`RequestId`, `email`, `CourseName`, `PaymentMethod`, `CreditCardNum`, `PaymentStatus`, `RequestTime`, `RequestStatus`, `Venue`, `Date`, `Pax`, `CVV`, `Images`) VALUES
-(1, 'neeh@gmail.com', 'Technical and software development skill', 'Cash', '', 'Pending', '2023-05-10 05:58:16', 'Pending', 'Sarawak Plaza', '2023-05-11', 2, 0, 'receipts_images/Screenshot.png');
+(1, 'neeh@gmail.com', 'Technical and software development skill', 'Cash', '', 'Pending', '2023-05-10 05:58:16', 'Pending', 'Sarawak Plaza', '2023-05-11', 2, 0, 'receipts_images/Screenshot.png'),
+(2, 'yie1@gmail.com', 'Sales and Marketing Skills', 'Cash', '', 'Approved', '2023-05-10 23:49:06', 'Confirmed', 'Tunku Abdul Rahman P', '2023-05-11', 2, 0, 'msp.jpg'),
+(3, 'yie1@gmail.com', 'Technical and software development skill', 'Credit Card', '1212121212121256', 'Pending', '2023-05-10 23:49:30', 'Pending', 'Cityone Megamall Eve', '2023-05-31', 3, 123, ''),
+(8, 'yie1@gmail.com', 'Technical and software development skill', 'Cash', '', 'Pending', '2023-05-11 14:25:57', 'Pending', '11Ridgeway Kuching', '2023-05-13', 2, 0, 'msp.jpg'),
+(9, 'yie1@gmail.com', 'MSP', 'Cash', '', 'Approved', '2023-05-15 14:16:52', 'Confirmed', 'Tunku Abdul Rahman P', '2023-05-18', 2, 0, 'msp.jpg');
 
 -- --------------------------------------------------------
 
@@ -324,7 +328,7 @@ ALTER TABLE `custom_requests`
 -- AUTO_INCREMENT for table `tblcourse`
 --
 ALTER TABLE `tblcourse`
-  MODIFY `CourseId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `CourseId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tblenrollment`
@@ -354,7 +358,7 @@ ALTER TABLE `tblschedule`
 -- AUTO_INCREMENT for table `tbltrainingrequest`
 --
 ALTER TABLE `tbltrainingrequest`
-  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `RequestId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `trainings`
