@@ -29,6 +29,9 @@ session_start();
           <li class="nav-item">
             <a class="nav-link" href="admin_dashboard.php">Admin Dashboard</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Enquiry.php">Enquiry</a>
+          </li>
 
         </ul>
         <ul class="nav navbar-nav">
@@ -61,9 +64,6 @@ else{
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Enquiry.php">Enquiry</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contactus.php">Contact Us</a>
           </li>
         </ul>
         <ul class="nav navbar-nav">
