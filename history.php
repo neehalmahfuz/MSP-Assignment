@@ -74,7 +74,7 @@ else{
                             <th>Venue</th>
                             <th>Date</th>
                             <th>Status</th>
-                            <th>Delete</th>
+                            <th>Cancel</th>
                         </tr>
                     </thead>
                     <tbody>
