@@ -119,15 +119,22 @@ while ($row = mysqli_fetch_assoc($result)) {
         <td><?php echo $row["Date"];?></td>
         <td><?php echo $row["RequestStatus"];?></td>
         <!-- Display the "Delete" button only if the training request's date is in the future -->
-        <?php if ($can_cancel): ?>
-            <td>
-                <a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>
-                    Delete
-                </a>
-            </td>
+        <?php if ($can_cancel && $row["RequestStatus"] != "Cancelled"): ?>
+    <td>
+        <a href="history.php?Id=GetRequest&RequestId=<?php echo $row['RequestId']; ?>" class="nav-link" onclick='return confirm("Are you sure you want to cancel the training request? Please note that there will be no refund after cancellation.")'>
+            Delete
+        </a>
+    </td>
+<?php else: ?>
+    <td>
+        <?php if ($row["RequestStatus"] == "Cancelled"): ?>
+            Cancelled
         <?php else: ?>
-            <td>Cannot Cancel</td>
+            Cannot Cancel
         <?php endif; ?>
+    </td>
+<?php endif; ?>
+
     </tr>
 <?php 
 } 
