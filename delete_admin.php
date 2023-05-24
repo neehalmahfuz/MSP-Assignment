@@ -6,8 +6,8 @@ $username = "root";
 $password = "";
 $dbname = "database";
     
-// default port is not working for mySQL, assign the new port manually, can discard this
-$conn = mysqli_connect($servername, $username, $password, $dbname, 3307);
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 // check if the email parameter is set
 if (isset($_GET['email'])) {
     $email = $_GET['email'];
